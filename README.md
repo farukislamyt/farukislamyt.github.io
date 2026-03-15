@@ -7,6 +7,12 @@ A modern, interactive portfolio website showcasing my work as a full-stack devel
 - **Responsive Design**: Works seamlessly across all devices
 - **Dark/Light Theme**: Automatic theme switching with user preference persistence
 - **Interactive Elements**: Smooth animations and micro-interactions
+- **Typing Effect**: Dynamic subtitle animation in hero section
+- **Particle Background**: Animated particle system for visual appeal
+- **Progress Bars**: Animated skill level indicators
+- **Project Modals**: Detailed project view with images and descriptions
+- **Scroll Animations**: Elements fade in as you scroll
+- **Mouse Parallax**: Subtle parallax effects following mouse movement
 - **Data-Driven**: Content managed through JavaScript for easy updates
 - **Professional Structure**: Organized assets and clean codebase
 
@@ -83,15 +89,37 @@ Place your images in `assets/images/` and update the paths in `main.js`:
 - Project screenshots
 - Skill icons
 
-## 📱 Sections
+## 🎯 Interactive Features
 
-- **Hero**: Introduction with call-to-action buttons
-- **About**: Personal introduction with profile photo
-- **Skills**: Interactive skill cards with hover effects
-- **Projects**: Featured work with live/demo links
-- **Activity**: GitHub activity visualization (placeholder)
-- **Timeline**: Developer journey with scroll animations
-- **Contact**: Interactive contact form
+### Typing Effect
+The hero subtitle features a dynamic typing animation that cycles through different developer titles.
+
+### Particle Background
+Animated particles create a modern, dynamic background effect in the activity section.
+
+### Skill Progress Bars
+Skills are displayed with animated progress bars that fill based on proficiency levels.
+
+### Project Modals
+Clicking on project cards opens detailed modal windows with full descriptions, technologies used, and action buttons.
+
+### Scroll Animations
+Sections fade in smoothly as they enter the viewport, creating a polished user experience.
+
+### Mouse Parallax
+Subtle parallax effects follow mouse movement for enhanced interactivity.
+
+### Animated Counters
+Statistics in the about section animate from 0 to their target values.
+
+## ⚡ Performance
+
+The site is optimized for performance with:
+- CSS animations using `transform` and `opacity` for smooth 60fps animations
+- Intersection Observer API for efficient scroll-based animations
+- RequestAnimationFrame for particle animations
+- Progressive enhancement - features work without JavaScript
+- Reduced motion support for accessibility
 
 ## 🚀 Deployment
 
@@ -112,8 +140,8 @@ This is a personal portfolio site, but feel free to fork and adapt for your own 
 ## 📞 Contact
 
 Faruk Islam
-- Email: hi@faruk.com
-- LinkedIn: [linkedin.com/in/farukislam](https://www.linkedin.com/in/farukislam/)
+- Email: farukislamyt@gmail.com
+- LinkedIn: [linkedin.com/in/farukislamyt](https://www.linkedin.com/in/farukislamyt/)
 - GitHub: [github.com/farukislamyt](https://github.com/farukislamyt)
 
 ---

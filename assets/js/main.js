@@ -134,8 +134,8 @@ const siteData = {
     email: "hi@faruk.com",
     location: "Dhaka, Bangladesh",
     linkedin: {
-      label: "linkedin.com/in/farukislam",
-      href: "https://www.linkedin.com/in/farukislam/",
+      label: "linkedin.com/in/farukislamyt",
+      href: "https://www.linkedin.com/in/farukislamyt/",
     },
     form: {
       success: "Thanks! Your message has been sent.",
@@ -157,7 +157,11 @@ function setHref(el, href) {
 function renderHero() {
   setText(dom.hero.preface, siteData.hero.preface);
   setText(dom.hero.title, siteData.hero.headline);
-  setText(dom.hero.subtitle, siteData.hero.subtitle);
+
+  // Start typing effect for subtitle
+  const subtitleElement = dom.hero.subtitle;
+  const subtitleText = siteData.hero.subtitle.replace(/<[^>]*>/g, ''); // Remove HTML tags for typing
+  typeWriter(subtitleElement, subtitleText, 50);
 
   setText(dom.hero.actionPrimary, siteData.hero.primaryAction.label);
   setHref(dom.hero.actionPrimary, siteData.hero.primaryAction.href);
@@ -364,13 +368,226 @@ function handleFormSubmit(event) {
     return;
   }
 
-  // Replace this with your backend endpoint or form service.
-  dom.contact.notice.textContent = siteData.contact.form.success;
-  form.reset();
+  // Show loading state
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Sending...";
+  submitBtn.disabled = true;
 
+  // Simulate form submission (replace with real endpoint)
   setTimeout(() => {
-    dom.contact.notice.textContent = "";
-  }, 5000);
+    dom.contact.notice.textContent = siteData.contact.form.success;
+    form.reset();
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+
+    setTimeout(() => {
+      dom.contact.notice.textContent = "";
+    }, 5000);
+  }, 1500);
+}
+
+function typeWriter(element, text, speed = 50) {
+  let i = 0;
+  element.textContent = '';
+
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    } else {
+      // Add cursor blink effect
+      element.classList.add('typing-done');
+    }
+  }
+
+  type();
+}
+
+function createParticles() {
+  const heroSection = document.querySelector('.hero');
+  if (!heroSection) return;
+
+  for (let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    heroSection.appendChild(particle);
+  }
+}
+
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat__value');
+  const speed = 200;
+
+  counters.forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target') || counter.textContent.replace(/[^\d]/g, ''));
+    const increment = target / speed;
+
+    let current = 0;
+    const updateCounter = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current) + '+';
+        setTimeout(updateCounter, 1);
+      } else {
+        counter.textContent = target + '+';
+      }
+    };
+
+    // Start animation when element is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    observer.observe(counter);
+  });
+}
+
+function createSkillProgressBars() {
+  const skills = document.querySelectorAll('.skill');
+  skills.forEach((skill, index) => {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'skill__progress';
+    progressBar.innerHTML = '<div class="skill__progress-fill"></div>';
+
+    skill.appendChild(progressBar);
+
+    // Animate progress bar on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            progressBar.querySelector('.skill__progress-fill').style.width = '100%';
+          }, index * 200);
+        }
+      });
+    });
+
+    observer.observe(skill);
+  });
+}
+
+function createProjectModals() {
+  const projects = document.querySelectorAll('.project');
+  projects.forEach(project => {
+    project.addEventListener('click', (e) => {
+      // Don't open modal if clicking on links
+      if (e.target.tagName === 'A') return;
+
+      const title = project.querySelector('.project__title').textContent;
+      const description = project.querySelector('.project__description').textContent;
+      const image = project.querySelector('.project__image')?.src || project.querySelector('.project__placeholder')?.textContent;
+      const tags = Array.from(project.querySelectorAll('.tag')).map(tag => tag.textContent);
+      const liveLink = project.querySelector('a[href*="live"]')?.href;
+      const sourceLink = project.querySelector('a[href*="source"]')?.href;
+
+      showProjectModal({
+        title,
+        description,
+        image,
+        tags,
+        liveLink,
+        sourceLink
+      });
+    });
+  });
+}
+
+function showProjectModal(project) {
+  // Create modal overlay
+  const modal = document.createElement('div');
+  modal.className = 'project-modal';
+  modal.innerHTML = `
+    <div class="project-modal__content">
+      <button class="project-modal__close" aria-label="Close modal">&times;</button>
+      <div class="project-modal__image">
+        ${project.image.includes('http') ?
+          `<img src="${project.image}" alt="${project.title}" />` :
+          `<div class="project-modal__placeholder">${project.image}</div>`
+        }
+      </div>
+      <div class="project-modal__details">
+        <h2>${project.title}</h2>
+        <p>${project.description}</p>
+        <div class="project-modal__tags">
+          ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+        </div>
+        <div class="project-modal__actions">
+          ${project.liveLink ? `<a href="${project.liveLink}" target="_blank" class="btn btn--primary">Live Demo</a>` : ''}
+          ${project.sourceLink ? `<a href="${project.sourceLink}" target="_blank" class="btn btn--secondary">Source Code</a>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  document.body.classList.add('no-scroll');
+
+  // Close modal functionality
+  const closeBtn = modal.querySelector('.project-modal__close');
+  closeBtn.addEventListener('click', () => {
+    modal.remove();
+    document.body.classList.remove('no-scroll');
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.remove();
+      document.body.classList.remove('no-scroll');
+    }
+  });
+
+  // Animate modal in
+  setTimeout(() => modal.classList.add('active'), 10);
+}
+
+function addScrollAnimations() {
+  const sections = document.querySelectorAll('main section');
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '-50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+}
+
+function addMouseParallax() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+
+    const heroContent = hero.querySelector('.hero__content');
+    const heroCard = hero.querySelector('.hero__card');
+
+    if (heroContent) {
+      heroContent.style.transform = `translate(${mouseX * 10 - 5}px, ${mouseY * 10 - 5}px)`;
+    }
+
+    if (heroCard) {
+      heroCard.style.transform = `translate(${mouseX * -10 + 5}px, ${mouseY * -10 + 5}px)`;
+    }
+  });
 }
 
 function setTheme(theme) {
@@ -423,6 +640,14 @@ function init() {
   if (dom.themeToggle) {
     dom.themeToggle.addEventListener("click", toggleTheme);
   }
+
+  // Initialize interactive features
+  createParticles();
+  animateCounters();
+  createSkillProgressBars();
+  createProjectModals();
+  addScrollAnimations();
+  addMouseParallax();
 
   observeSections();
   observeTimeline();
