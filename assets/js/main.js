@@ -1783,7 +1783,17 @@ function init() {
 
   try {
     // Initialize core components
-    const pwaHandler = new PWAHandler();
+    let pwaHandler = null;
+
+    // Only initialize PWA features if service worker is available (not in static file serving)
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+      try {
+        pwaHandler = new PWAHandler();
+      } catch (error) {
+        logger.warn('PWA features not available in current environment', { error: error.message });
+      }
+    }
+
     const dataManager = new DataManager();
     const animationController = new AnimationController();
 
@@ -1792,12 +1802,12 @@ function init() {
       new FormHandler(dom.contact.form);
     }
 
-    // Setup PWA install handlers
-    if (dom.pwaInstallBtn) {
+    // Setup PWA install handlers only if PWA is available
+    if (pwaHandler && dom.pwaInstallBtn) {
       dom.pwaInstallBtn.addEventListener('click', () => pwaHandler.install());
     }
 
-    if (dom.pwaDismissBtn) {
+    if (pwaHandler && dom.pwaDismissBtn) {
       dom.pwaDismissBtn.addEventListener('click', () => pwaHandler.hideInstallPrompt());
     }
 
