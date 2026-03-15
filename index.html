@@ -35,6 +35,7 @@
             <li><a class="nav__link" href="#about">About</a></li>
             <li><a class="nav__link" href="#skills">Skills</a></li>
             <li><a class="nav__link" href="#projects">Projects</a></li>
+            <li><a class="nav__link" href="#ui-demo">UI Demo</a></li>
             <li><a class="nav__link" href="#contact">Contact</a></li>
           </ul>
         </nav>
@@ -223,6 +224,155 @@
               <button class="btn btn--primary" type="submit">Send message</button>
               <p class="form__notice" id="formNotice" aria-live="polite"></p>
             </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- UI/UX Components Demo Section -->
+      <section class="section" id="ui-demo">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">UI/UX Components</h2>
+            <p class="section__subtitle">
+              Advanced user interface components and interactions demonstrating modern web development techniques.
+            </p>
+          </header>
+
+          <div class="grid ui-demo__grid">
+            <!-- Enhanced Form Validation -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Form Validation</h3>
+                <p class="card-subtitle">Real-time validation with visual feedback</p>
+              </div>
+              <div class="card-content">
+                <form class="demo-form">
+                  <div class="form-group">
+                    <label class="form-label" for="demo-email">Email Address</label>
+                    <input class="form-input" type="email" id="demo-email" placeholder="Enter your email" required />
+                    <span class="form-error">Please enter a valid email address</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="demo-password">Password</label>
+                    <input class="form-input" type="password" id="demo-password" placeholder="Enter password" minlength="8" required />
+                    <span class="form-error">Password must be at least 8 characters</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Enhanced Buttons & Loading States -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Interactive Buttons</h3>
+                <p class="card-subtitle">Loading states and button groups</p>
+              </div>
+              <div class="card-content">
+                <div class="demo-buttons">
+                  <button class="btn btn--primary" onclick="showLoading(this)">Submit Form</button>
+                  <button class="btn btn--secondary" onclick="showToast('success')">Show Success</button>
+                  <button class="btn btn--error" onclick="showToast('error')">Show Error</button>
+                </div>
+                <div class="btn-group" style="margin-top: 1rem;">
+                  <button class="btn btn--secondary">Left</button>
+                  <button class="btn btn--secondary">Middle</button>
+                  <button class="btn btn--secondary">Right</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Progress & Status -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Progress & Status</h3>
+                <p class="card-subtitle">Visual indicators and progress bars</p>
+              </div>
+              <div class="card-content">
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+                <div class="status-indicators" style="margin-top: 1rem;">
+                  <div class="status-indicator status--online">
+                    <span class="status-dot"></span>
+                    Online
+                  </div>
+                  <div class="status-indicator status--away">
+                    <span class="status-dot"></span>
+                    Away
+                  </div>
+                  <div class="status-indicator status--busy">
+                    <span class="status-dot"></span>
+                    Busy
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Tabs -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Tabbed Content</h3>
+                <p class="card-subtitle">Organized content with smooth transitions</p>
+              </div>
+              <div class="card-content">
+                <div class="tabs">
+                  <div class="tabs-list">
+                    <button class="tab active" onclick="switchTab(this, 'tab1')">Overview</button>
+                    <button class="tab" onclick="switchTab(this, 'tab2')">Features</button>
+                    <button class="tab" onclick="switchTab(this, 'tab3')">Usage</button>
+                  </div>
+                  <div id="tab1" class="tab-content active">
+                    <p>This portfolio showcases modern web development techniques including advanced CSS animations, responsive design, and interactive components.</p>
+                  </div>
+                  <div id="tab2" class="tab-content">
+                    <ul>
+                      <li>40+ CSS animations and transitions</li>
+                      <li>Responsive grid system</li>
+                      <li>Accessibility features</li>
+                      <li>Performance optimizations</li>
+                    </ul>
+                  </div>
+                  <div id="tab3" class="tab-content">
+                    <p>Built with vanilla HTML, CSS, and JavaScript. No frameworks required. Perfect for modern web development portfolios.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Search -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Search Interface</h3>
+                <p class="card-subtitle">Enhanced search with visual feedback</p>
+              </div>
+              <div class="card-content">
+                <div class="search-container">
+                  <input class="search-input" type="text" placeholder="Search components..." />
+                  <div class="search-icon">🔍</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Code Block -->
+            <div class="card card--elevated">
+              <div class="card-header">
+                <h3 class="card-title">Code Display</h3>
+                <p class="card-subtitle">Syntax-highlighted code blocks</p>
+              </div>
+              <div class="card-content">
+                <div class="code-block" data-language="javascript">
+                  <pre><code>const portfolio = {
+  skills: ['HTML', 'CSS', 'JavaScript'],
+  animations: 40,
+  responsive: true,
+  accessible: true
+};
+
+// Modern web development
+console.log('Building amazing experiences!');</code></pre>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

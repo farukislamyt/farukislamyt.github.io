@@ -1167,4 +1167,123 @@ function init() {
   addPropertyChangeAnimations();
 }
 
+// UI/UX Demo Functions
+function showLoading(button) {
+  button.classList.add('btn--loading');
+  button.textContent = 'Processing...';
+
+  setTimeout(() => {
+    button.classList.remove('btn--loading');
+    button.textContent = 'Submit Form';
+    showToast('success');
+  }, 2000);
+}
+
+function showToast(type) {
+  // Remove existing toasts
+  const existingToasts = document.querySelectorAll('.toast');
+  existingToasts.forEach(toast => toast.remove());
+
+  // Create new toast
+  const toast = document.createElement('div');
+  toast.className = `toast toast--${type}`;
+
+  if (type === 'success') {
+    toast.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span>✓</span>
+        <span>Form submitted successfully!</span>
+      </div>
+    `;
+  } else {
+    toast.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span>✕</span>
+        <span>An error occurred. Please try again.</span>
+      </div>
+    `;
+  }
+
+  document.body.appendChild(toast);
+
+  // Trigger animation
+  setTimeout(() => toast.classList.add('show'), 100);
+
+  // Auto remove
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function switchTab(clickedTab, tabId) {
+  // Remove active class from all tabs
+  const tabs = clickedTab.parentElement.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+
+  // Add active class to clicked tab
+  clickedTab.classList.add('active');
+
+  // Hide all tab content
+  const tabContents = clickedTab.closest('.tabs').querySelectorAll('.tab-content');
+  tabContents.forEach(content => content.classList.remove('active'));
+
+  // Show selected tab content
+  const selectedContent = document.getElementById(tabId);
+  if (selectedContent) {
+    selectedContent.classList.add('active');
+  }
+}
+
+// Enhanced form validation
+function initFormValidation() {
+  const demoForm = document.querySelector('.demo-form');
+  if (!demoForm) return;
+
+  const emailInput = document.getElementById('demo-email');
+  const passwordInput = document.getElementById('demo-password');
+
+  function validateEmail() {
+    const email = emailInput.value;
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    emailInput.classList.toggle('valid', isValid && email.length > 0);
+    emailInput.classList.toggle('invalid', !isValid && email.length > 0);
+    return isValid;
+  }
+
+  function validatePassword() {
+    const password = passwordInput.value;
+    const isValid = password.length >= 8;
+    passwordInput.classList.toggle('valid', isValid && password.length > 0);
+    passwordInput.classList.toggle('invalid', !isValid && password.length > 0);
+    return isValid;
+  }
+
+  emailInput.addEventListener('input', validateEmail);
+  passwordInput.addEventListener('input', validatePassword);
+
+  emailInput.addEventListener('blur', validateEmail);
+  passwordInput.addEventListener('blur', validatePassword);
+}
+
+// Initialize demo components when DOM is ready
+function initDemoComponents() {
+  initFormValidation();
+
+  // Add keyboard navigation for tabs
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      const focusedElement = document.activeElement;
+      if (focusedElement.classList.contains('tab')) {
+        e.preventDefault();
+        const tabs = Array.from(focusedElement.parentElement.querySelectorAll('.tab'));
+        const currentIndex = tabs.indexOf(focusedElement);
+        const nextIndex = (currentIndex + 1) % tabs.length;
+        tabs[nextIndex].focus();
+      }
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", initDemoComponents);
