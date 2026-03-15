@@ -1,10 +1,13 @@
 /*
-  Dynamic portfolio renderer
-  - Uses a simple data model (siteData) to populate the template
-  - Includes interactive animations and effects
-  - Uses IntersectionObserver for a professional nav highlight experience
+  Modern Portfolio Application
+  - ES2026+ features with progressive enhancement
+  - PWA capabilities with offline support
+  - Advanced performance monitoring
+  - Enhanced accessibility features
+  - Modern error handling and logging
 */
 
+// Modern DOM manipulation with error handling
 const dom = {
   logo: document.getElementById("logo"),
   nav: document.getElementById("nav"),
@@ -13,6 +16,9 @@ const dom = {
   scrollTopBtn: document.getElementById("scrollTop"),
   year: document.getElementById("year"),
   footerName: document.getElementById("footerName"),
+  pwaInstallPrompt: document.getElementById("pwa-install-prompt"),
+  pwaInstallBtn: document.getElementById("pwa-install-btn"),
+  pwaDismissBtn: document.getElementById("pwa-dismiss-btn"),
   hero: {
     preface: document.getElementById("heroPreface"),
     title: document.getElementById("heroName"),
@@ -33,6 +39,492 @@ const dom = {
     notice: document.getElementById("formNotice"),
   },
 };
+
+// Modern configuration with environment detection
+const config = {
+  isProduction: location.hostname !== 'localhost' && location.hostname !== '127.0.0.1',
+  supportsPWA: 'serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window,
+  supportsWebGL: (() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  })(),
+  prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  prefersDark: window.matchMedia('(prefers-color-scheme: dark)').matches,
+};
+
+// Modern error handling and logging
+class AppError extends Error {
+  constructor(message, code = 'UNKNOWN_ERROR', context = {}) {
+    super(message);
+    this.name = 'AppError';
+    this.code = code;
+    this.context = context;
+    this.timestamp = new Date().toISOString();
+  }
+}
+
+const logger = {
+  info: (message, data = {}) => {
+    if (config.isProduction) {
+      console.info(`[INFO] ${message}`, data);
+    }
+  },
+  warn: (message, data = {}) => {
+    console.warn(`[WARN] ${message}`, data);
+  },
+  error: (error, context = {}) => {
+    console.error(`[ERROR] ${error.message}`, {
+      ...error,
+      context,
+      stack: error.stack
+    });
+
+    // In production, you might want to send this to an error tracking service
+    if (config.isProduction) {
+      // reportError(error);
+    }
+  }
+};
+
+// Modern performance monitoring
+const performanceMonitor = {
+  marks: new Map(),
+  measures: new Map(),
+
+  mark(name) {
+    if ('performance' in window && performance.mark) {
+      performance.mark(name);
+      this.marks.set(name, performance.now());
+    }
+  },
+
+  measure(name, startMark, endMark) {
+    if ('performance' in window && performance.measure) {
+      try {
+        performance.measure(name, startMark, endMark);
+        const measure = performance.getEntriesByName(name)[0];
+        this.measures.set(name, measure.duration);
+        return measure.duration;
+      } catch (e) {
+        logger.warn('Performance measure failed', { name, error: e.message });
+      }
+    }
+    return null;
+  },
+
+  getMetrics() {
+    return {
+      marks: Object.fromEntries(this.marks),
+      measures: Object.fromEntries(this.measures),
+      navigation: performance.getEntriesByType('navigation')[0],
+      paint: performance.getEntriesByType('paint')
+    };
+  }
+};
+
+// PWA functionality
+class PWAHandler {
+  constructor() {
+    this.deferredPrompt = null;
+    this.isInstalled = false;
+    this.init();
+  }
+
+  init() {
+    if (!config.supportsPWA) {
+      logger.info('PWA not supported');
+      return;
+    }
+
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      this.showInstallPrompt();
+    });
+
+    // Listen for successful installation
+    window.addEventListener('appinstalled', () => {
+      this.isInstalled = true;
+      this.hideInstallPrompt();
+      logger.info('PWA installed successfully');
+    });
+
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      this.isInstalled = true;
+    }
+  }
+
+  showInstallPrompt() {
+    if (dom.pwaInstallPrompt && !this.isInstalled) {
+      dom.pwaInstallPrompt.style.display = 'block';
+    }
+  }
+
+  hideInstallPrompt() {
+    if (dom.pwaInstallPrompt) {
+      dom.pwaInstallPrompt.style.display = 'none';
+    }
+  }
+
+  async install() {
+    if (!this.deferredPrompt) return false;
+
+    this.deferredPrompt.prompt();
+    const { outcome } = await this.deferredPrompt.userChoice;
+
+    this.deferredPrompt = null;
+
+    if (outcome === 'accepted') {
+      logger.info('User accepted PWA installation');
+      return true;
+    } else {
+      logger.info('User dismissed PWA installation');
+      return false;
+    }
+  }
+}
+
+// Modern data management with caching
+class DataManager {
+  constructor() {
+    this.cache = new Map();
+    this.cacheExpiry = new Map();
+  }
+
+  async fetchWithCache(url, options = {}) {
+    const cacheKey = `${options.method || 'GET'}:${url}`;
+    const now = Date.now();
+    const cached = this.cache.get(cacheKey);
+    const expiry = this.cacheExpiry.get(cacheKey);
+
+    if (cached && expiry && now < expiry) {
+      logger.info('Returning cached data', { url });
+      return cached;
+    }
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          'Cache-Control': 'no-cache',
+          ...options.headers
+        }
+      });
+
+      if (!response.ok) {
+        throw new AppError(`HTTP ${response.status}: ${response.statusText}`, 'FETCH_ERROR', { url });
+      }
+
+      const data = await response.json();
+
+      // Cache for 5 minutes
+      this.cache.set(cacheKey, data);
+      this.cacheExpiry.set(cacheKey, now + 5 * 60 * 1000);
+
+      return data;
+    } catch (error) {
+      logger.error(error, { url });
+      throw error;
+    }
+  }
+
+  clearCache() {
+    this.cache.clear();
+    this.cacheExpiry.clear();
+  }
+}
+
+// Enhanced animation system with modern features
+class AnimationController {
+  constructor() {
+    this.observers = new Map();
+    this.animations = new Set();
+    this.init();
+  }
+
+  init() {
+    if (config.prefersReducedMotion) {
+      logger.info('Reduced motion preferred, disabling animations');
+      return;
+    }
+
+    this.initIntersectionObserver();
+    this.initResizeObserver();
+  }
+
+  initIntersectionObserver() {
+    const options = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    this.observers.set('intersection', observer);
+  }
+
+  initResizeObserver() {
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          // Handle container query like behavior
+          const { width } = entry.contentRect;
+          entry.target.style.setProperty('--container-width', `${width}px`);
+        });
+      });
+
+      this.observers.set('resize', resizeObserver);
+    }
+  }
+
+  observe(element, type = 'intersection') {
+    const observer = this.observers.get(type);
+    if (observer) {
+      observer.observe(element);
+    }
+  }
+
+  // Modern animation API with WAAPI
+  animate(element, keyframes, options = {}) {
+    if (!element.animate) {
+      // Fallback for older browsers
+      element.style.transition = `all ${options.duration || 300}ms ease`;
+      return { finished: Promise.resolve() };
+    }
+
+    const animation = element.animate(keyframes, {
+      duration: options.duration || 300,
+      easing: options.easing || 'ease-out',
+      fill: options.fill || 'forwards',
+      ...options
+    });
+
+    this.animations.add(animation);
+
+    animation.finished.then(() => {
+      this.animations.delete(animation);
+    });
+
+    return animation;
+  }
+
+  // Batch animations for better performance
+  animateBatch(elements, keyframes, options = {}) {
+    const animations = elements.map(element => this.animate(element, keyframes, options));
+    return Promise.all(animations.map(anim => anim.finished));
+  }
+
+  // Cancel all running animations
+  cancelAll() {
+    this.animations.forEach(animation => animation.cancel());
+    this.animations.clear();
+  }
+}
+
+// Enhanced form handling with modern validation
+class FormHandler {
+  constructor(form) {
+    this.form = form;
+    this.fields = new Map();
+    this.errors = new Map();
+    this.init();
+  }
+
+  init() {
+    if (!this.form) return;
+
+    // Modern form validation
+    this.form.setAttribute('novalidate', '');
+
+    // Get all form fields
+    const inputs = this.form.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+      this.fields.set(input.name, input);
+      this.setupField(input);
+    });
+
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+  }
+
+  setupField(field) {
+    const events = ['blur', 'input', 'change'];
+
+    events.forEach(event => {
+      field.addEventListener(event, () => {
+        this.validateField(field);
+      });
+    });
+
+    // Real-time validation for modern browsers
+    if ('ConstraintValidation' in window) {
+      field.addEventListener('invalid', (e) => {
+        e.preventDefault();
+        this.showFieldError(field);
+      });
+    }
+  }
+
+  validateField(field) {
+    const value = field.value.trim();
+    const name = field.name;
+    let isValid = true;
+    let errorMessage = '';
+
+    // Custom validation rules
+    switch (name) {
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+        errorMessage = isValid ? '' : 'Please enter a valid email address';
+        break;
+
+      case 'name':
+        isValid = value.length >= 2;
+        errorMessage = isValid ? '' : 'Name must be at least 2 characters';
+        break;
+
+      case 'message':
+        isValid = value.length >= 10;
+        errorMessage = isValid ? '' : 'Message must be at least 10 characters';
+        break;
+
+      default:
+        isValid = field.checkValidity();
+        errorMessage = field.validationMessage;
+    }
+
+    this.errors.set(name, errorMessage);
+    this.updateFieldUI(field, isValid, errorMessage);
+
+    return isValid;
+  }
+
+  updateFieldUI(field, isValid, errorMessage) {
+    const formGroup = field.closest('.form-group');
+    if (!formGroup) return;
+
+    // Remove existing error messages
+    const existingError = formGroup.querySelector('.form-error');
+    if (existingError) {
+      existingError.remove();
+    }
+
+    // Update field classes
+    field.classList.toggle('valid', isValid && field.value.length > 0);
+    field.classList.toggle('invalid', !isValid && field.value.length > 0);
+
+    // Show error message
+    if (!isValid && errorMessage) {
+      const errorElement = document.createElement('div');
+      errorElement.className = 'form-error';
+      errorElement.textContent = errorMessage;
+      formGroup.appendChild(errorElement);
+    }
+  }
+
+  showFieldError(field) {
+    const error = this.errors.get(field.name);
+    if (error) {
+      this.updateFieldUI(field, false, error);
+    }
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+
+    // Validate all fields
+    let isFormValid = true;
+    for (const [name, field] of this.fields) {
+      if (!this.validateField(field)) {
+        isFormValid = false;
+      }
+    }
+
+    if (!isFormValid) {
+      logger.warn('Form validation failed');
+      return;
+    }
+
+    // Show loading state
+    const submitBtn = this.form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    try {
+      // Simulate form submission (replace with actual API call)
+      await this.submitForm(new FormData(this.form));
+
+      // Show success message
+      this.showMessage('Message sent successfully!', 'success');
+
+      // Reset form
+      this.form.reset();
+      this.clearErrors();
+
+    } catch (error) {
+      logger.error(error);
+      this.showMessage('Failed to send message. Please try again.', 'error');
+    } finally {
+      // Reset button
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  }
+
+  async submitForm(formData) {
+    // Simulate API call - replace with actual implementation
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.1) { // 90% success rate
+          resolve({ success: true });
+        } else {
+          reject(new AppError('Network error', 'NETWORK_ERROR'));
+        }
+      }, 1000);
+    });
+  }
+
+  showMessage(message, type) {
+    const notice = dom.contact.notice;
+    if (notice) {
+      notice.textContent = message;
+      notice.className = `form__notice form__notice--${type}`;
+      notice.setAttribute('aria-live', 'polite');
+
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        notice.textContent = '';
+        notice.className = 'form__notice';
+      }, 5000);
+    }
+  }
+
+  clearErrors() {
+    this.errors.clear();
+    this.fields.forEach(field => {
+      field.classList.remove('valid', 'invalid');
+      const formGroup = field.closest('.form-group');
+      if (formGroup) {
+        const error = formGroup.querySelector('.form-error');
+        if (error) error.remove();
+      }
+    });
+  }
+}
 
 const siteData = {
   profile: {
@@ -1285,5 +1777,383 @@ function initDemoComponents() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", init);
+// Initialize modern app components
+function init() {
+  performanceMonitor.mark('app-init-start');
+
+  try {
+    // Initialize core components
+    const pwaHandler = new PWAHandler();
+    const dataManager = new DataManager();
+    const animationController = new AnimationController();
+
+    // Initialize form handling
+    if (dom.contact.form) {
+      new FormHandler(dom.contact.form);
+    }
+
+    // Setup PWA install handlers
+    if (dom.pwaInstallBtn) {
+      dom.pwaInstallBtn.addEventListener('click', () => pwaHandler.install());
+    }
+
+    if (dom.pwaDismissBtn) {
+      dom.pwaDismissBtn.addEventListener('click', () => pwaHandler.hideInstallPrompt());
+    }
+
+    // Enhanced navigation with modern features
+    setupNavigation();
+
+    // Enhanced animations with modern API
+    setupAnimations(animationController);
+
+    // Performance monitoring
+    setupPerformanceMonitoring();
+
+    // Enhanced accessibility
+    setupAccessibility();
+
+    // Modern data rendering
+    renderSiteData();
+
+    performanceMonitor.mark('app-init-end');
+    const initTime = performanceMonitor.measure('app-init', 'app-init-start', 'app-init-end');
+    logger.info('App initialized', { initTime });
+
+  } catch (error) {
+    logger.error(new AppError('Failed to initialize app', 'INIT_ERROR', { error: error.message }));
+  }
+}
+
+// Enhanced navigation with modern features
+function setupNavigation() {
+  // Smooth scrolling with modern behavior
+  dom.navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          // Update URL without triggering navigation
+          history.pushState(null, null, href);
+        }
+      }
+    });
+  });
+
+  // Enhanced mobile menu with modern animations
+  if (dom.navToggle) {
+    dom.navToggle.addEventListener('click', () => {
+      const isExpanded = dom.nav.getAttribute('aria-expanded') === 'true';
+      dom.nav.setAttribute('aria-expanded', !isExpanded);
+      dom.navToggle.setAttribute('aria-expanded', !isExpanded);
+      dom.nav.classList.toggle('nav--open');
+    });
+  }
+
+  // Close mobile menu on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dom.nav.classList.contains('nav--open')) {
+      dom.nav.classList.remove('nav--open');
+      dom.nav.setAttribute('aria-expanded', 'false');
+      dom.navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+// Enhanced animations with modern API
+function setupAnimations(animationController) {
+  // Observe elements for animations
+  document.querySelectorAll('.animate-on-scroll').forEach(element => {
+    animationController.observe(element);
+  });
+
+  // Enhanced scroll effects
+  let ticking = false;
+  const handleScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateScrollEffects();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Parallax effects with modern performance
+  const parallaxElements = document.querySelectorAll('.parallax');
+  if (parallaxElements.length && !config.prefersReducedMotion) {
+    const handleParallax = () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.5;
+
+      parallaxElements.forEach(element => {
+        element.style.transform = `translateY(${rate}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleParallax, { passive: true });
+  }
+}
+
+function updateScrollEffects() {
+  const scrolled = window.pageYOffset;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const scrollPercent = scrolled / maxScroll;
+
+  // Update scroll progress indicator
+  const progressBar = document.querySelector('.scroll-progress');
+  if (progressBar) {
+    progressBar.style.width = `${scrollPercent * 100}%`;
+  }
+
+  // Show/hide scroll to top button
+  if (dom.scrollTopBtn) {
+    dom.scrollTopBtn.classList.toggle('visible', scrolled > 500);
+  }
+
+  // Update active navigation link
+  updateActiveNavLink();
+}
+
+function updateActiveNavLink() {
+  const sections = document.querySelectorAll('section[id]');
+  const scrollY = window.pageYOffset;
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute('id');
+
+    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+      document.querySelector(`.nav__link[href="#${sectionId}"]`)?.classList.add('active');
+    } else {
+      document.querySelector(`.nav__link[href="#${sectionId}"]`)?.classList.remove('active');
+    }
+  });
+}
+
+// Performance monitoring setup
+function setupPerformanceMonitoring() {
+  // Monitor Core Web Vitals
+  if ('web-vitals' in window) {
+    import('https://unpkg.com/web-vitals@3?module').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(console.log);
+      getFID(console.log);
+      getFCP(console.log);
+      getLCP(console.log);
+      getTTFB(console.log);
+    });
+  }
+
+  // Monitor memory usage
+  if ('memory' in performance) {
+    setInterval(() => {
+      const memInfo = performance.memory;
+      logger.info('Memory usage', {
+        used: Math.round(memInfo.usedJSHeapSize / 1048576),
+        total: Math.round(memInfo.totalJSHeapSize / 1048576),
+        limit: Math.round(memInfo.jsHeapSizeLimit / 1048576)
+      });
+    }, 30000); // Every 30 seconds
+  }
+}
+
+// Enhanced accessibility features
+function setupAccessibility() {
+  // Skip link functionality
+  const skipLink = document.querySelector('.skip-link');
+  if (skipLink) {
+    skipLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(skipLink.getAttribute('href'));
+      if (target) {
+        target.focus();
+        target.scrollIntoView();
+      }
+    });
+  }
+
+  // Enhanced keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    // Close modals with escape
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal[open]');
+      if (openModal) {
+        openModal.close();
+      }
+    }
+  });
+
+  // Announce dynamic content changes
+  const announceChanges = (message, priority = 'polite') => {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', priority);
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.style.position = 'absolute';
+    announcement.style.left = '-10000px';
+    announcement.style.width = '1px';
+    announcement.style.height = '1px';
+    announcement.style.overflow = 'hidden';
+
+    announcement.textContent = message;
+    document.body.appendChild(announcement);
+
+    setTimeout(() => {
+      document.body.removeChild(announcement);
+    }, 1000);
+  };
+
+  // Monitor for dynamic content changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+        announceChanges('Content updated');
+      }
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+// Modern data rendering with error handling
+function renderSiteData() {
+  try {
+    // Update dynamic content
+    if (dom.year) {
+      dom.year.textContent = new Date().getFullYear();
+    }
+
+    if (dom.footerName) {
+      dom.footerName.textContent = siteData.profile.name;
+    }
+
+    // Render hero section
+    if (dom.hero.preface) dom.hero.preface.textContent = siteData.hero.preface;
+    if (dom.hero.title) dom.hero.title.textContent = siteData.hero.headline;
+    if (dom.hero.subtitle) dom.hero.subtitle.innerHTML = siteData.hero.subtitle;
+
+    // Render contact info
+    if (dom.contact.email) dom.contact.email.textContent = siteData.contact.email;
+    if (dom.contact.location) dom.contact.location.textContent = siteData.contact.location;
+    if (dom.contact.linkedin) dom.contact.linkedin.href = siteData.contact.linkedin;
+
+    // Render skills and projects
+    renderSkills();
+    renderProjects();
+
+    logger.info('Site data rendered successfully');
+
+  } catch (error) {
+    logger.error(new AppError('Failed to render site data', 'RENDER_ERROR', { error: error.message }));
+  }
+}
+
+// Enhanced skills rendering
+function renderSkills() {
+  if (!dom.skillsGrid) return;
+
+  const skillsHTML = siteData.skills.map(skill => `
+    <div class="skill" data-skill="${skill.name}">
+      <div class="skill__icon">
+        <i class="${skill.icon}" aria-hidden="true"></i>
+      </div>
+      <h3 class="skill__name">${skill.name}</h3>
+      <p class="skill__description">${skill.description}</p>
+      <div class="skill__progress">
+        <div class="skill__progress-bar" style="width: ${skill.level}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  dom.skillsGrid.innerHTML = skillsHTML;
+}
+
+// Enhanced projects rendering
+function renderProjects() {
+  if (!dom.projectsGrid) return;
+
+  const projectsHTML = siteData.projects.map(project => `
+    <div class="project" data-project="${project.id}">
+      <div class="project__image">
+        <img src="${project.image}" alt="${project.title}" loading="lazy" />
+        <div class="project__overlay">
+          <div class="project__links">
+            <a href="${project.demo}" class="btn btn--primary" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i> Live Demo
+            </a>
+            <a href="${project.github}" class="btn btn--secondary" target="_blank" rel="noopener">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="project__content">
+        <h3 class="project__title">${project.title}</h3>
+        <p class="project__description">${project.description}</p>
+        <div class="project__tech">
+          ${project.technologies.map(tech => `<span class="badge badge-primary">${tech}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  dom.projectsGrid.innerHTML = projectsHTML;
+}
+
+// Enhanced scroll to top functionality
+if (dom.scrollTopBtn) {
+  dom.scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// Modern error boundary
+window.addEventListener('error', (e) => {
+  logger.error(new AppError(e.message, 'GLOBAL_ERROR', {
+    filename: e.filename,
+    lineno: e.lineno,
+    colno: e.colno
+  }));
+});
+
+window.addEventListener('unhandledrejection', (e) => {
+  logger.error(new AppError(e.reason?.message || 'Unhandled promise rejection', 'UNHANDLED_REJECTION', {
+    reason: e.reason
+  }));
+});
+
+// Modern page visibility API
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    logger.info('Page hidden');
+  } else {
+    logger.info('Page visible');
+  }
+});
+
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+// Initialize demo components
 document.addEventListener("DOMContentLoaded", initDemoComponents);

@@ -3,17 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Faruk Islam - Full Stack Developer | Building modern web applications and solving real-world problems through clean code." />
+    <meta name="description" content="Faruk Islam - Full Stack Developer | Building modern web applications and solving real-world problems through clean code. PWA-enabled portfolio with advanced animations." />
     <meta name="theme-color" content="#1a1a1a" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Faruk Islam Portfolio" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Faruk Portfolio" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#1a1a1a" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://farukislamyt.github.io/" />
+    <meta property="og:title" content="Faruk Islam - Full Stack Developer" />
+    <meta property="og:description" content="Building modern web applications and solving real-world problems through clean code." />
+    <meta property="og:image" content="https://farukislamyt.github.io/assets/images/og-image.png" />
+    <meta property="og:site_name" content="Faruk Islam Portfolio" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://farukislamyt.github.io/" />
+    <meta property="twitter:title" content="Faruk Islam - Full Stack Developer" />
+    <meta property="twitter:description" content="Building modern web applications and solving real-world problems through clean code." />
+    <meta property="twitter:image" content="https://farukislamyt.github.io/assets/images/twitter-card.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Faruk Islam",
+      "jobTitle": "Full Stack Developer",
+      "url": "https://farukislamyt.github.io",
+      "sameAs": [
+        "https://github.com/farukislamyt",
+        "https://www.linkedin.com/in/farukislamyt/"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "Bangladesh"
+      },
+      "knowsAbout": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Python",
+        "Full Stack Development",
+        "Web Performance",
+        "Progressive Web Apps"
+      ]
+    }
+    </script>
+
     <title>Faruk Islam | Full Stack Developer</title>
 
-    <!-- Fonts -->
+    <!-- Fonts with preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- PWA Resources -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png" />
+
+    <!-- Preload critical resources -->
+    <link rel="modulepreload" href="/assets/js/main.js" />
+    <link rel="preload" href="/assets/css/styles.css" as="style" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/styles.css" />
@@ -394,7 +459,20 @@ console.log('Building amazing experiences!');</code></pre>
       ↑
     </button>
 
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
+      <div class="pwa-install-content">
+        <h3>Install Portfolio App</h3>
+        <p>Get the full experience with offline access and native app features.</p>
+        <div class="pwa-install-actions">
+          <button id="pwa-install-btn" class="btn btn--primary">Install</button>
+          <button id="pwa-dismiss-btn" class="btn btn--secondary">Not now</button>
+        </div>
+      </div>
+    </div>
+
     <script src="assets/js/main.js"></script>
+    <script src="sw.js"></script>
   </body>
 </html>
 
