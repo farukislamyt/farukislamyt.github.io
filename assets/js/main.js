@@ -81,21 +81,24 @@ const siteData = {
   },
   skills: [
     {
-      name: "Web Technologies",
-      detail:
-        "HTML, CSS, JavaScript, Progressive Enhancement, and responsive layouts.",
+      name: "Frontend",
+      detail: "React, Vue, HTML5, CSS3, JavaScript, TypeScript",
+      icon: "https://via.placeholder.com/48x48?text=FE",
     },
     {
-      name: "Frameworks",
-      detail: "React, Vue, Svelte, Next.js, and responsive component libraries.",
+      name: "Backend",
+      detail: "Node.js, Express, Python, Django, REST APIs",
+      icon: "https://via.placeholder.com/48x48?text=BE",
     },
     {
-      name: "Mobile Apps",
-      detail: "React Native / Expo and cross-platform experiences.",
+      name: "Mobile",
+      detail: "React Native, Expo, Cross-platform development",
+      icon: "https://via.placeholder.com/48x48?text=Mobile",
     },
     {
-      name: "Tooling",
-      detail: "Git, CI/CD, Docker, unit testing, and performance tooling.",
+      name: "Tools",
+      detail: "Git, Docker, CI/CD, Testing, Performance optimization",
+      icon: "https://via.placeholder.com/48x48?text=Tools",
     },
   ],
   projects: [
@@ -175,17 +178,6 @@ function renderAbout() {
   const aboutSection = document.getElementById("about");
   if (!aboutSection) return;
 
-  const paragraphs = siteData.about.paragraphs
-    .map((p) => `<p>${p}</p>`)
-    .join("\n");
-
-  const statsHtml = siteData.about.stats
-    .map(
-      (stat) =>
-        `<div class="stat"><span class="stat__value">${stat.value}</span><span class="stat__label">${stat.label}</span></div>`
-    )
-    .join("\n");
-
   const aboutText = aboutSection.querySelector(".about__text");
   if (aboutText) {
     aboutText.innerHTML = `
@@ -195,9 +187,13 @@ function renderAbout() {
     `;
   }
 
-  const aboutStats = aboutSection.querySelector(".about__stats");
-  if (aboutStats) {
-    aboutStats.innerHTML = statsHtml;
+  const aboutProfile = aboutSection.querySelector(".about__profile");
+  if (aboutProfile) {
+    aboutProfile.innerHTML = `
+      <div class="profile__image">
+        <img src="https://via.placeholder.com/300x300?text=Profile+Photo" alt="${siteData.profile.name}" loading="lazy" />
+      </div>
+    `;
   }
 }
 
@@ -208,6 +204,7 @@ function renderSkills() {
     .map(
       (skill) =>
         `<div class="skill">
+          <img class="skill__icon" src="${skill.icon}" alt="${skill.name} icon" loading="lazy" />
           <h3 class="skill__name">${skill.name}</h3>
           <p class="skill__detail">${skill.detail}</p>
         </div>`
@@ -332,6 +329,26 @@ function observeSections() {
   sections.forEach((section) => observer.observe(section));
 }
 
+function observeTimeline() {
+  const timelineItems = document.querySelectorAll(".timeline__item");
+  const options = {
+    root: null,
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add("visible");
+        }, index * 200);
+      }
+    });
+  }, options);
+
+  timelineItems.forEach((item) => observer.observe(item));
+}
+
 function handleFormSubmit(event) {
   event.preventDefault();
   const form = dom.contact.form;
@@ -408,6 +425,7 @@ function init() {
   }
 
   observeSections();
+  observeTimeline();
   initTheme();
   showScrollTop();
 }

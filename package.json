@@ -1,0 +1,31 @@
+{
+  "name": "faruk-islam-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website for Faruk Islam - Full Stack Developer",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build step required'",
+    "preview": "start index.html"
+  },
+  "keywords": [
+    "portfolio",
+    "web-developer",
+    "full-stack",
+    "javascript",
+    "react",
+    "node.js"
+  ],
+  "author": "Faruk Islam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farukislamyt/farukislamyt.github.io"
+  },
+  "homepage": "https://farukislamyt.github.io",
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
