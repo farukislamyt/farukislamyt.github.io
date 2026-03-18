@@ -1,14 +1,11 @@
 {
   "name": "Faruk Islam - Full Stack Developer",
   "short_name": "Faruk Portfolio",
-  "description": "Modern portfolio showcasing full-stack development skills with advanced animations and PWA features",
+  "description": "Full Stack Developer Portfolio",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0c0f",
+  "background_color": "#0f172a",
   "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
-  "scope": "/",
-  "lang": "en-US",
-  "categories": ["portfolio", "developer", "technology"],
-  "icons": []
+  "scope": "/"
 }

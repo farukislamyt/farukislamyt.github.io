@@ -1,498 +1,659 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Faruk Islam - Full Stack Developer | Building modern web applications and solving real-world problems through clean code. PWA-enabled portfolio with advanced animations." />
-    <meta name="theme-color" content="#1a1a1a" />
-    <meta name="color-scheme" content="dark light" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Faruk Islam - Full Stack Developer | Building modern web applications">
+    <meta name="theme-color" content="#3b82f6">
+    <title>Faruk Islam - Full Stack Developer</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%233b82f6'>F</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- PWA Meta Tags -->
-    <meta name="application-name" content="Faruk Islam Portfolio" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Faruk Portfolio" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="msapplication-TileColor" content="#1a1a1a" />
-    <meta name="msapplication-config" content="/browserconfig.xml" />
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://farukislamyt.github.io/" />
-    <meta property="og:title" content="Faruk Islam - Full Stack Developer" />
-    <meta property="og:description" content="Building modern web applications and solving real-world problems through clean code." />
-    <meta property="og:image" content="https://farukislamyt.github.io/assets/images/og-image.png" />
-    <meta property="og:site_name" content="Faruk Islam Portfolio" />
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #1a1f35 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://farukislamyt.github.io/" />
-    <meta property="twitter:title" content="Faruk Islam - Full Stack Developer" />
-    <meta property="twitter:description" content="Building modern web applications and solving real-world problems through clean code." />
-    <meta property="twitter:image" content="https://farukislamyt.github.io/assets/images/twitter-card.png" />
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Faruk Islam",
-      "jobTitle": "Full Stack Developer",
-      "url": "https://farukislamyt.github.io",
-      "sameAs": [
-        "https://github.com/farukislamyt",
-        "https://www.linkedin.com/in/farukislamyt/"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Dhaka",
-        "addressCountry": "Bangladesh"
-      },
-      "knowsAbout": [
-        "JavaScript",
-        "React",
-        "Node.js",
-        "Python",
-        "Full Stack Development",
-        "Web Performance",
-        "Progressive Web Apps"
-      ]
-    }
-    </script>
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    <title>Faruk Islam | Full Stack Developer</title>
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
 
-    <!-- Fonts with preload -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+        .logo:hover {
+            opacity: 0.8;
+        }
 
-    <!-- PWA Resources -->
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/icon-180x180.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png" />
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
 
-    <!-- Preload critical resources -->
-    <link rel="modulepreload" href="/assets/js/main.js" />
-    <link rel="preload" href="/assets/css/styles.css" as="style" />
+        nav a:hover {
+            color: var(--primary);
+        }
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body>
-    <header class="site-header" id="header">
-      <div class="container header-inner">
-        <a class="logo" href="#home" id="logo">Faruk Islam</a>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
-        <div class="header__actions">
-          <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" id="navToggle">
-            <span class="hamburger"></span>
-          </button>
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+            border-color: var(--primary);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary), #06b6d4);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 4rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .skill-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #06b6d4);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .contact-list a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-list a:hover {
+            color: #06b6d4;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Section Headers */
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        section > .container > p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        section:nth-child(odd) {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                display: flex;
+                gap: 1rem;
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            nav a {
+                margin: 0;
+                white-space: nowrap;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo" onclick="showSection('home'); return false;">Faruk Islam</a>
+            <nav>
+                <a href="#" onclick="showSection('home'); return false;">Home</a>
+                <a href="#" onclick="showSection('about'); return false;">About</a>
+                <a href="#" onclick="showSection('skills'); return false;">Skills</a>
+                <a href="#" onclick="showSection('projects'); return false;">Projects</a>
+                <a href="#" onclick="showSection('contact'); return false;">Contact</a>
+            </nav>
         </div>
-
-        <nav class="nav" id="nav">
-          <ul class="nav__list">
-            <li><a class="nav__link" href="#home">Home</a></li>
-            <li><a class="nav__link" href="#about">About</a></li>
-            <li><a class="nav__link" href="#skills">Skills</a></li>
-            <li><a class="nav__link" href="#projects">Projects</a></li>
-            <li><a class="nav__link" href="#ui-demo">UI Demo</a></li>
-            <li><a class="nav__link" href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
     </header>
 
-    <main>
-      <section class="hero" id="home">
-        <div class="container hero__inner">
-          <div class="hero__content">
-            <p class="hero__preface" id="heroPreface">Hi, I'm</p>
-            <h1 class="hero__title" id="heroName">Faruk Islam</h1>
-            <p class="hero__subtitle" id="heroSubtitle">
-              Building modern web applications and solving real-world problems through clean code.
-            </p>
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#projects" id="heroPrimary">View Projects</a>
-              <a class="btn btn--secondary" href="#contact" id="heroSecondary">Contact Me</a>
-              <a class="btn btn--tertiary" href="https://github.com/farukislamyt" target="_blank" rel="noreferrer" id="heroGitHub">GitHub</a>
+    <!-- Home Section -->
+    <section id="home" class="active">
+        <div class="container hero">
+            <h1>Faruk Islam</h1>
+            <p>Full Stack Developer | Building modern web applications and solving real-world problems through clean code</p>
+            <div class="button-group">
+                <a href="#" class="btn btn-primary" onclick="showSection('projects'); return false;">View My Work</a>
+                <a href="#" class="btn btn-secondary" onclick="showSection('contact'); return false;">Get In Touch</a>
             </div>
-          </div>
-          <div class="hero__media">
-            <div class="hero__card">
-              <h2 class="hero__card-title" id="heroCardTitle">Latest project</h2>
-              <p class="hero__card-text" id="heroCardText">
-                A modern portfolio template built with <strong>HTML</strong>,
-                <strong>CSS</strong>, and <strong>JavaScript</strong>.
-              </p>
-              <a class="btn btn--tertiary" href="#projects" id="heroCardAction">See projects</a>
-            </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      <section class="section" id="about">
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">About</h2>
-            <p class="section__subtitle">
-              Developer based in Dhaka building responsive web applications and experimenting with modern full-stack technologies.
-            </p>
-          </header>
-          <div class="grid about__grid">
-            <div class="about__text">
-              <p>
-                I'm a full‑stack developer specializing in web and mobile applications. I focus on clean code, scalable architecture, and delightful UX.
-              </p>
-              <p>
-                My day-to-day includes building new features, optimizing performance, and collaborating across teams to ship polished product experiences.
-              </p>
-              <a class="btn btn--primary" href="#contact">Get in touch</a>
-            </div>
-            <div class="about__profile">
-              <div class="profile__image">
-                <img src="https://via.placeholder.com/300x300?text=Profile+Photo" alt="Faruk Islam" loading="lazy" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="skills">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Skills</h2>
-            <p class="section__subtitle">
-              Technologies and tools I use to build modern applications.
-            </p>
-          </header>
-          <div class="grid skills__grid" id="skillsGrid" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="activity">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Projects</h2>
-            <p class="section__subtitle">
-              Featured projects and recent work demonstrating full-stack capabilities.
-            </p>
-          </header>
-          <div class="grid projects__grid" id="projectsGrid" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="projects">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Developer Activity</h2>
-            <p class="section__subtitle">
-              Recent contributions and active repositories on GitHub.
-            </p>
-          </header>
-          <div class="activity__grid" id="activityGrid">
-            <div class="activity__card">
-              <h3>Recent Commits</h3>
-              <p>Latest code contributions and updates.</p>
-              <div class="activity__placeholder">GitHub activity visualization coming soon</div>
-            </div>
-            <div class="activity__card">
-              <h3>Pinned Repositories</h3>
-              <p>Highlighted projects and open source work.</p>
-              <div class="activity__placeholder">Repository showcase coming soon</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="timeline">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Developer Journey</h2>
-            <p class="section__subtitle">
-              My path from learning to building and beyond.
-            </p>
-          </header>
-          <div class="timeline" id="timelineContainer">
-            <div class="timeline__item">
-              <div class="timeline__marker"></div>
-              <div class="timeline__content">
-                <h3>Learning Programming</h3>
-                <p>Started with HTML, CSS, and JavaScript basics.</p>
-                <span class="timeline__date">2020</span>
-              </div>
-            </div>
-            <div class="timeline__item">
-              <div class="timeline__marker"></div>
-              <div class="timeline__content">
-                <h3>Building First Projects</h3>
-                <p>Created responsive websites and simple web apps.</p>
-                <span class="timeline__date">2021</span>
-              </div>
-            </div>
-            <div class="timeline__item">
-              <div class="timeline__marker"></div>
-              <div class="timeline__content">
-                <h3>Exploring Full Stack Development</h3>
-                <p>Dived into backend technologies and databases.</p>
-                <span class="timeline__date">2022</span>
-              </div>
-            </div>
-            <div class="timeline__item">
-              <div class="timeline__marker"></div>
-              <div class="timeline__content">
-                <h3>Current Focus</h3>
-                <p>Building scalable applications and learning new technologies.</p>
-                <span class="timeline__date">2023-Present</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="contact">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Contact</h2>
-            <p class="section__subtitle">
-              Want to work together? Send a message and I'll get back to you within 1–2 business days.
-            </p>
-          </header>
-
-          <div class="grid contact__grid">
-            <div class="contact__info">
-              <h3>Say hello</h3>
-              <p>
-                Feel free to reach out by email, LinkedIn, or using the form.
-              </p>
-
-              <ul class="contact__list">
-                <li>
-                  <strong>Email:</strong>
-                  <a id="contactEmail" href="mailto:hi@faruk.com">hi@faruk.com</a>
-                </li>
-                <li>
-                  <strong>Location:</strong> <span id="contactLocation">Dhaka, Bangladesh</span>
-                </li>
-                <li>
-                  <strong>LinkedIn:</strong>
-                  <a id="contactLinkedIn" href="https://www.linkedin.com/in/farukislamyt/" target="_blank" rel="noreferrer">linkedin.com/in/farukislamyt</a>
-                </li>
-              </ul>
-            </div>
-
-            <form class="contact__form" id="contactForm" novalidate>
-              <div class="form__field">
-                <label class="form__label" for="name">Name</label>
-                <input class="form__input" type="text" id="name" name="name" required />
-              </div>
-              <div class="form__field">
-                <label class="form__label" for="email">Email</label>
-                <input class="form__input" type="email" id="email" name="email" required />
-              </div>
-              <div class="form__field">
-                <label class="form__label" for="message">Message</label>
-                <textarea class="form__input" id="message" name="message" rows="5" required></textarea>
-              </div>
-              <button class="btn btn--primary" type="submit">Send message</button>
-              <p class="form__notice" id="formNotice" aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <!-- UI/UX Components Demo Section -->
-      <section class="section" id="ui-demo">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">UI/UX Components</h2>
-            <p class="section__subtitle">
-              Advanced user interface components and interactions demonstrating modern web development techniques.
-            </p>
-          </header>
-
-          <div class="grid ui-demo__grid">
-            <!-- Enhanced Form Validation -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Form Validation</h3>
-                <p class="card-subtitle">Real-time validation with visual feedback</p>
-              </div>
-              <div class="card-content">
-                <form class="demo-form">
-                  <div class="form-group">
-                    <label class="form-label" for="demo-email">Email Address</label>
-                    <input class="form-input" type="email" id="demo-email" placeholder="Enter your email" required />
-                    <span class="form-error">Please enter a valid email address</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="demo-password">Password</label>
-                    <input class="form-input" type="password" id="demo-password" placeholder="Enter password" minlength="8" required />
-                    <span class="form-error">Password must be at least 8 characters</span>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Enhanced Buttons & Loading States -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Interactive Buttons</h3>
-                <p class="card-subtitle">Loading states and button groups</p>
-              </div>
-              <div class="card-content">
-                <div class="demo-buttons">
-                  <button class="btn btn--primary" onclick="showLoading(this)">Submit Form</button>
-                  <button class="btn btn--secondary" onclick="showToast('success')">Show Success</button>
-                  <button class="btn btn--error" onclick="showToast('error')">Show Error</button>
+            <h2>About Me</h2>
+            <p>Learn more about my journey and experience</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Who I Am</h2>
+                    <p>I'm a full-stack developer specializing in web and mobile applications. I focus on clean code, scalable architecture, and delightful user experiences.</p>
+                    <p>My day-to-day includes building new features, optimizing performance, and collaborating across teams to ship polished product experiences.</p>
+                    <p>I'm passionate about learning new technologies and staying current with industry best practices.</p>
                 </div>
-                <div class="btn-group" style="margin-top: 1rem;">
-                  <button class="btn btn--secondary">Left</button>
-                  <button class="btn btn--secondary">Middle</button>
-                  <button class="btn btn--secondary">Right</button>
-                </div>
-              </div>
+                <div class="about-image">👨‍💻</div>
             </div>
+        </div>
+    </section>
 
-            <!-- Enhanced Progress & Status -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Progress & Status</h3>
-                <p class="card-subtitle">Visual indicators and progress bars</p>
-              </div>
-              <div class="card-content">
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: 75%;"></div>
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Skills & Technologies</h2>
+            <p>Tools and technologies I use to build amazing products</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Frontend Development</h3>
+                    <p>React, Vue.js, HTML5, CSS3, JavaScript, TypeScript, Tailwind CSS, Responsive Design</p>
                 </div>
-                <div class="status-indicators" style="margin-top: 1rem;">
-                  <div class="status-indicator status--online">
-                    <span class="status-dot"></span>
-                    Online
-                  </div>
-                  <div class="status-indicator status--away">
-                    <span class="status-dot"></span>
-                    Away
-                  </div>
-                  <div class="status-indicator status--busy">
-                    <span class="status-dot"></span>
-                    Busy
-                  </div>
+                <div class="skill-card">
+                    <h3>Backend Development</h3>
+                    <p>Node.js, Express, Python, Django, REST APIs, GraphQL, Database Design</p>
                 </div>
-              </div>
+                <div class="skill-card">
+                    <h3>Mobile Development</h3>
+                    <p>React Native, Expo, Cross-platform development, Native iOS/Android</p>
+                </div>
+                <div class="skill-card">
+                    <h3>DevOps & Tools</h3>
+                    <p>Git, Docker, CI/CD, AWS, Heroku, GitHub Actions, Testing, Performance Optimization</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Databases</h3>
+                    <p>PostgreSQL, MongoDB, MySQL, Firebase, Redis, SQL Query Optimization</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Soft Skills</h3>
+                    <p>Communication, Problem Solving, Team Collaboration, Project Management, Mentoring</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Enhanced Tabs -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Tabbed Content</h3>
-                <p class="card-subtitle">Organized content with smooth transitions</p>
-              </div>
-              <div class="card-content">
-                <div class="tabs">
-                  <div class="tabs-list">
-                    <button class="tab active" onclick="switchTab(this, 'tab1')">Overview</button>
-                    <button class="tab" onclick="switchTab(this, 'tab2')">Features</button>
-                    <button class="tab" onclick="switchTab(this, 'tab3')">Usage</button>
-                  </div>
-                  <div id="tab1" class="tab-content active">
-                    <p>This portfolio showcases modern web development techniques including advanced CSS animations, responsive design, and interactive components.</p>
-                  </div>
-                  <div id="tab2" class="tab-content">
-                    <ul>
-                      <li>40+ CSS animations and transitions</li>
-                      <li>Responsive grid system</li>
-                      <li>Accessibility features</li>
-                      <li>Performance optimizations</li>
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <p>A selection of my recent work and personal projects</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">🎨</div>
+                    <div class="project-content">
+                        <h3>Design System Kit</h3>
+                        <p>A component library with accessible, themeable UI primitives for large-scale applications.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Storybook</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">✅</div>
+                    <div class="project-content">
+                        <h3>Task Tracker App</h3>
+                        <p>A cross-platform productivity app with offline sync and push notifications.</p>
+                        <div class="project-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Offline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🚀</div>
+                    <div class="project-content">
+                        <h3>Marketing Site</h3>
+                        <p>A performance-focused landing page with animations and CMS integration.</p>
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">Jamstack</span>
+                            <span class="tag">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>Have a project in mind? Let's talk about it.</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Feel free to reach out to me via email or social media. I'm always interested in hearing about new projects and opportunities.</p>
+                    <ul class="contact-list">
+                        <li><strong>Email:</strong> <a href="mailto:hi@faruk.com">hi@faruk.com</a></li>
+                        <li><strong>Location:</strong> Dhaka, Bangladesh</li>
+                        <li><strong>GitHub:</strong> <a href="https://github.com/farukislamyt" target="_blank">github.com/farukislamyt</a></li>
+                        <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/farukislamyt" target="_blank">linkedin.com/in/farukislamyt</a></li>
                     </ul>
-                  </div>
-                  <div id="tab3" class="tab-content">
-                    <p>Built with vanilla HTML, CSS, and JavaScript. No frameworks required. Perfect for modern web development portfolios.</p>
-                  </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Enhanced Search -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Search Interface</h3>
-                <p class="card-subtitle">Enhanced search with visual feedback</p>
-              </div>
-              <div class="card-content">
-                <div class="search-container">
-                  <input class="search-input" type="text" placeholder="Search components..." />
-                  <div class="search-icon">🔍</div>
+                <div>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
                 </div>
-              </div>
             </div>
-
-            <!-- Enhanced Code Block -->
-            <div class="card card--elevated">
-              <div class="card-header">
-                <h3 class="card-title">Code Display</h3>
-                <p class="card-subtitle">Syntax-highlighted code blocks</p>
-              </div>
-              <div class="card-content">
-                <div class="code-block" data-language="javascript">
-                  <pre><code>const portfolio = {
-  skills: ['HTML', 'CSS', 'JavaScript'],
-  animations: 40,
-  responsive: true,
-  accessible: true
-};
-
-// Modern web development
-console.log('Building amazing experiences!');</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
-    </main>
+    </section>
 
-    <footer class="site-footer">
-      <div class="container footer__inner">
-        <p>
-          Built with love in <strong>HTML</strong>, <strong>CSS</strong>, and
-          <strong>JavaScript</strong>. &copy; <span id="year"></span> <span id="footerName">Faruk Islam</span>.
-        </p>
-        <p>
-          <a href="#home" class="footer__link">Back to top</a>
-        </p>
-      </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Faruk Islam. All rights reserved. | <a href="#" onclick="showSection('home'); return false;">Back to top</a></p>
     </footer>
 
-    <button class="scroll-to-top" id="scrollTop" aria-label="Scroll to top">
-      ↑
-    </button>
-
-    <!-- PWA Install Prompt -->
-    <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
-      <div class="pwa-install-content">
-        <h3>Install Portfolio App</h3>
-        <p>Get the full experience with offline access and native app features.</p>
-        <div class="pwa-install-actions">
-          <button id="pwa-install-btn" class="btn btn--primary">Install</button>
-          <button id="pwa-dismiss-btn" class="btn btn--secondary">Not now</button>
-        </div>
-      </div>
-    </div>
-
-    <script src="assets/js/main.js"></script>
-
-    <!-- Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-          console.log('Service Worker registered successfully:', registration);
-        }).catch(error => {
-          console.log('Service Worker registration failed:', error);
-        });
-      }
+        // Navigation functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                alert(`Thank you for reaching out, ${name}! I'll get back to you soon.`);
+                event.target.reset();
+            }
+        }
+
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('Service Worker registered');
+            }).catch(error => {
+                console.log('Service Worker registration failed:', error);
+            });
+        }
     </script>
+</body>
+</html>
 
