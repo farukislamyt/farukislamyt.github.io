@@ -43,15 +43,10 @@
     "last 2 versions",
     "> 1%",
     "not dead"
-  ]
-  "license": "MIT",
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/farukislamyt/farukislamyt.github.io"
   },
-  "homepage": "https://farukislamyt.github.io",
-  "devDependencies": {},
-  "engines": {
-    "node": ">=14.0.0"
-  }
+  "homepage": "https://farukislamyt.github.io"
 }
