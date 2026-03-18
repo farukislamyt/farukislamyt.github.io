@@ -3,7 +3,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
   root: '.',
-  publicDir: 'public',
+  publicDir: '.',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

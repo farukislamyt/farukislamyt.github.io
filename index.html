@@ -177,6 +177,18 @@
       <section class="section section--alt" id="activity">
         <div class="container">
           <header class="section__header">
+            <h2 class="section__title">Projects</h2>
+            <p class="section__subtitle">
+              Featured projects and recent work demonstrating full-stack capabilities.
+            </p>
+          </header>
+          <div class="grid projects__grid" id="projectsGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="projects">
+        <div class="container">
+          <header class="section__header">
             <h2 class="section__title">Developer Activity</h2>
             <p class="section__subtitle">
               Recent contributions and active repositories on GitHub.
@@ -472,4 +484,15 @@ console.log('Building amazing experiences!');</code></pre>
     </div>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('Service Worker registered successfully:', registration);
+        }).catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+      }
+    </script>
 
