@@ -1,158 +1,61 @@
-# Faruk Islam - Portfolio Website
+# Faruk Islam — Portfolio Website
 
-A modern, responsive portfolio website for showcasing full-stack development work.
+A professional dark-themed portfolio website for a Full Stack Developer.
 
-## ✨ Features
-
-- ✅ Clean, modern design
-- ✅ Fully responsive (mobile, tablet, desktop)
-- ✅ Dark mode by default
-- ✅ Smooth navigation between sections
-- ✅ Contact form
-- ✅ Service Worker for offline support
-- ✅ **No external dependencies** - pure HTML, CSS, JS
-- ✅ **Works immediately** - just open `index.html`
-
-## 🚀 Getting Started
-
-### Quick Start (No Setup Required)
-
-1. **Just open the file**: Double-click `index.html`
-   - Website opens immediately in your browser
-   - No server needed, no installation required
-   - Everything works offline
-
-### With a Local Server (Optional)
-
-```bash
-# Using Python 3
-python -m http.server 8000
-# Open http://localhost:8000
-```
-
-## 📁 Project Structure
+## 📁 File Structure
 
 ```
-├── index.html          # Everything: HTML, CSS, JavaScript
-├── manifest.json       # PWA configuration
-├── sw.js               # Service Worker
-├── package.json        # Project metadata
-└── README.md           # This file
+faruk-portfolio/
+├── index.html          ← Main HTML file
+├── css/
+│   └── style.css       ← All styles
+├── js/
+│   └── main.js         ← All JavaScript
+├── assets/             ← Put your CV PDF here as "faruk-islam-cv.pdf"
+└── README.md
 ```
 
-## 💡 How It Works
+## 🚀 How to Use
 
-**Zero dependencies** - This is a static website that:
-- Has no build step
-- Needs no npm install
-- Requires no external libraries
-- Works in any modern browser
+1. Open `index.html` in any browser — no build step needed.
+2. To deploy: upload all files to Netlify, Vercel, or GitHub Pages.
 
-Everything is self-contained in a single `index.html` file.
+## ✏️ What to Customize
 
-## ✏️ Customize Your Portfolio
+### Personal Info (`index.html`)
+- Replace `faruk@email.com` with your real email
+- Replace `github.com/farukislam` and `linkedin.com/in/farukislam` with your real URLs
+- Update hero bio text, years of experience, project count
+- Update project names, descriptions, tech stacks
+- Update work history (companies, roles, years, descriptions)
 
-### Edit Content
-Open `index.html` with any text editor and update:
-- Your name and headline
-- About section
-- Skills list
-- Projects showcase
-- Contact information
+### CV Download
+- Add your CV as `assets/faruk-islam-cv.pdf`
 
-### Change Colors
-In the `<style>` section, modify these CSS variables:
-```css
---primary: #3b82f6;        /* Main color (blue) */
---bg: #0f172a;             /* Background */
---text: #f1f5f9;           /* Text color */
-```
-
-### Add Your Information
-Replace placeholder text in each section:
-- Hero section: Your title and tagline
-- Projects: Your actual projects
-- Skills: Your technologies
-- Contact: Your email and social links
-
-## 🌐 Deploy to GitHub Pages
-
-```bash
-# 1. Commit and push
-git add .
-git commit -m "Update portfolio"
-git push origin main
-
-# 2. Enable Pages in GitHub Settings
-# Your site is now live at https://yourusername.github.io
-```
-
-### Other Hosting
-Upload files to:
-- Netlify
-- Vercel
-- Firebase Hosting
-- Any web server
-
-## 🎯 Features Explained
-
-### Navigation
-- Click links in header to jump between sections
-- Smooth scrolling
-- Works on mobile
+### Skill Percentages (`index.html`)
+- Edit `style="--w:95%"` values on each `.bar-fill` element
 
 ### Contact Form
-- Basic form with validation
-- Currently shows confirmation message
-- For email functionality, use:
-  - Formspree
-  - EmailJS
-  - Backend API
+- In `js/main.js`, replace the `setTimeout` simulation in `initContactForm()`
+  with a real API call (e.g. EmailJS, Formspree, or your own backend)
 
-### Offline Support
-- Service Worker automatically caches pages
-- Website works without internet
-- No setup needed
+## 🎨 Features
+- Custom animated cursor
+- Scroll-triggered reveal animations
+- Animated skill bars
+- Typing effect in hero section
+- Counter animation on stats
+- Subtle tilt effect on cards
+- Mobile responsive with hamburger menu
+- Sticky navbar with blur on scroll
+- Contact form with success state
+- Back-to-top button
+- Custom scrollbar
 
-### Mobile Responsive
-- Works on phones, tablets, desktops
-- Touch-friendly buttons
-- Optimized layout for all screen sizes
+## 🌐 Deploy to Netlify (Free)
+1. Go to [netlify.com](https://netlify.com)
+2. Drag & drop the `faruk-portfolio` folder
+3. Done! Your site is live.
 
-## 🌍 Browser Support
-
-Works in:
-- ✅ Chrome/Edge
-- ✅ Firefox
-- ✅ Safari
-- ✅ Mobile Chrome/Safari
-- ✅ All modern browsers
-
-## 🐛 Troubleshooting
-
-**Website won't open?**
-- Double-click `index.html` directly
-- Make sure JavaScript is enabled
-
-**Styles look weird?**
-- Clear browser cache (Ctrl+Shift+Delete)
-- Try a different browser
-
-**Form not sending?**
-- Currently just shows confirmation
-- Use Formspree (free) for real emails
-
-## 📊 Performance
-
-- **Load time**: < 1 second
-- **Offline**: ✅ Works
-- **Mobile**: ✅ Optimized
-- **Size**: Very small
-
-## 📝 License
-
-MIT - Use this template for your portfolio
-
----
-
-**Ready to use - just customize and deploy! 🎉**
+## 📄 License
+Free to use and customize for personal use.
