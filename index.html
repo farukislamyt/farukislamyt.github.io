@@ -1,28 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Faruk Islam — Full Stack Developer</title>
-  <meta name="description" content="Full Stack Developer based in Dhaka, Bangladesh. Building scalable web applications with React, Node.js, and modern cloud infrastructure." />
+  <meta name="description" content="Full Stack Developer based in Dhaka, Bangladesh. 6+ years building scalable web applications with React, Node.js, and modern cloud infrastructure." />
+  <meta name="keywords" content="Full Stack Developer, React, Node.js, TypeScript, Dhaka, Bangladesh, Web Developer" />
+  <meta name="author" content="Faruk Islam" />
+  <!-- Open Graph -->
   <meta property="og:title" content="Faruk Islam — Full Stack Developer" />
   <meta property="og:description" content="Building robust, scalable web applications from database to interface." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://farukislam.dev" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Faruk Islam — Full Stack Developer" />
+  <meta name="twitter:description" content="Building robust, scalable web applications." />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
+  <!-- PAGE LOADER -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">FI<span>.</span></div>
+      <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
+      <div class="loader-text" id="loader-text">Initializing...</div>
+    </div>
+  </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scroll-progress"></div>
 
   <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-follower" id="cursor-follower"></div>
 
-  <!-- NOISE OVERLAY -->
+  <!-- NOISE -->
   <div class="noise"></div>
 
-  <!-- NAV -->
+  <!-- PARTICLES -->
+  <canvas id="particles" class="particles-canvas"></canvas>
+
+  <!-- NAVBAR -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">FI<span>.</span></a>
@@ -30,32 +56,42 @@
         <li><a href="#about">About</a></li>
         <li><a href="#stack">Stack</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#experience">Experience</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#contact" class="nav-cta">hire_me() →</a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-icon-dark">☀️</span>
+          <span class="theme-icon-light">🌙</span>
+        </button>
+        <a href="#contact" class="nav-cta">hire_me() →</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <!-- Mobile menu -->
     <div class="mobile-menu" id="mobile-menu">
       <ul>
         <li><a href="#about" class="mob-link">About</a></li>
         <li><a href="#stack" class="mob-link">Stack</a></li>
         <li><a href="#projects" class="mob-link">Projects</a></li>
+        <li><a href="#services" class="mob-link">Services</a></li>
         <li><a href="#experience" class="mob-link">Experience</a></li>
+        <li><a href="#testimonials" class="mob-link">Testimonials</a></li>
         <li><a href="#contact" class="mob-link">Contact</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- ═══════════════════════════════════════ -->
   <!-- HERO -->
+  <!-- ═══════════════════════════════════════ -->
   <section id="hero" class="hero-section">
     <div class="hero-bg-grid"></div>
-    <div class="hero-glow hero-glow-1"></div>
-    <div class="hero-glow hero-glow-2"></div>
-
+    <div class="hero-glow g1"></div>
+    <div class="hero-glow g2"></div>
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
@@ -63,453 +99,457 @@
             <span class="badge-dot"></span>
             Open to opportunities &nbsp;·&nbsp; Dhaka, Bangladesh
           </div>
-
-          <h1 class="hero-name reveal reveal-delay-1">
+          <h1 class="hero-name reveal reveal-d1">
             Faruk<br><em>Islam</em>
           </h1>
-
-          <p class="hero-role reveal reveal-delay-2">Full Stack Developer</p>
-
-          <p class="hero-desc reveal reveal-delay-3">
-            I craft end-to-end digital products — from scalable backend architectures to polished user interfaces. Obsessed with clean code, performance, and shipping things that genuinely matter.
+          <p class="hero-role reveal reveal-d2">
+            <span id="typing-text">Full Stack Developer</span><span class="cursor-blink">|</span>
           </p>
-
-          <div class="hero-actions reveal reveal-delay-4">
+          <p class="hero-desc reveal reveal-d3">
+            I craft end-to-end digital products — from scalable backend architectures to pixel-perfect interfaces. 6+ years turning ambitious ideas into products people love.
+          </p>
+          <div class="hero-actions reveal reveal-d4">
             <a href="#projects" class="btn-primary">View My Work <span>↗</span></a>
             <a href="assets/faruk-islam-cv.pdf" class="btn-outline" download>Download CV</a>
           </div>
-
-          <div class="hero-socials reveal reveal-delay-5">
-            <a href="https://github.com/" target="_blank" class="social-link" title="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <div class="hero-socials reveal reveal-d5">
+            <a href="https://github.com/" target="_blank" class="social-link" aria-label="GitHub">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://linkedin.com/" target="_blank" class="social-link" title="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <a href="https://linkedin.com/" target="_blank" class="social-link" aria-label="LinkedIn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
-            <a href="mailto:faruk@email.com" class="social-link" title="Email">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href="mailto:faruk@email.com" class="social-link" aria-label="Email">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             </a>
           </div>
         </div>
-
-        <div class="hero-right reveal reveal-delay-2">
-          <div class="stats-card">
-            <div class="stat-item">
-              <div class="stat-number">6<span>+</span></div>
-              <div class="stat-label">Years Experience</div>
+        <div class="hero-right reveal reveal-d2">
+          <div class="profile-card">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar">
+                <div class="avatar-initials">FI</div>
+                <div class="avatar-ring"></div>
+                <div class="avatar-ring ring2"></div>
+              </div>
+              <div class="profile-status"><span class="status-dot"></span>Available for work</div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <div class="stat-number">40<span>+</span></div>
-              <div class="stat-label">Projects Shipped</div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-num" data-count="6" data-suffix="+">6+</div>
+                <div class="stat-lbl">Years exp.</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num" data-count="40" data-suffix="+">40+</div>
+                <div class="stat-lbl">Projects</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num" data-count="15" data-suffix="+">15+</div>
+                <div class="stat-lbl">Clients</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num" data-count="99" data-suffix="%">99%</div>
+                <div class="stat-lbl">Satisfaction</div>
+              </div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <div class="stat-number">15<span>+</span></div>
-              <div class="stat-label">Happy Clients</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <div class="stat-number">99<span>%</span></div>
-              <div class="stat-label">Client Satisfaction</div>
+            <div class="profile-currently">
+              <div class="pc-label">Currently learning</div>
+              <div class="pc-items">
+                <span class="pc-item">AI/ML Integration</span>
+                <span class="pc-item">Rust</span>
+                <span class="pc-item">Web3</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="scroll-indicator">
+    <div class="scroll-hint">
       <div class="scroll-line"></div>
       <span>scroll</span>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ -->
   <!-- ABOUT -->
-  <section id="about" class="about-section">
+  <!-- ═══════════════════════════════════════ -->
+  <section id="about" class="about-section section-alt">
     <div class="container">
       <div class="about-inner">
         <div class="about-left reveal">
           <div class="section-tag">// 00 · About</div>
           <h2 class="section-title">Who I Am</h2>
-          <p class="about-text">
-            I'm a Full Stack Developer with 6+ years of experience building high-performance web applications. Based in Dhaka, Bangladesh, I work with startups and enterprises globally to turn ambitious ideas into polished digital products.
-          </p>
-          <p class="about-text">
-            My approach combines strong engineering fundamentals with a keen eye for user experience. I believe the best software is both technically sound and a genuine pleasure to use.
-          </p>
+          <p class="body-text">I'm a Full Stack Developer with 6+ years of experience building high-performance web applications for startups and global enterprises. Based in Dhaka, Bangladesh — working worldwide remotely.</p>
+          <p class="body-text">My approach combines strong engineering fundamentals with a deep care for user experience. I believe the best products are technically excellent <em>and</em> genuinely delightful to use.</p>
           <div class="about-highlights">
-            <div class="highlight-item">
-              <div class="highlight-icon">⚡</div>
-              <div>
-                <div class="highlight-title">Performance First</div>
-                <div class="highlight-desc">Every millisecond counts. I optimize for speed at every layer.</div>
-              </div>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-icon">🏗️</div>
-              <div>
-                <div class="highlight-title">Clean Architecture</div>
-                <div class="highlight-desc">Scalable, maintainable code that teams love to work with.</div>
-              </div>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-icon">🚀</div>
-              <div>
-                <div class="highlight-title">Ship Fast, Ship Right</div>
-                <div class="highlight-desc">Agile delivery without sacrificing quality or reliability.</div>
-              </div>
-            </div>
+            <div class="highlight reveal reveal-d1"><span class="hi-icon">⚡</span><div><b>Performance First</b><p>Every millisecond counts. I optimize at every layer.</p></div></div>
+            <div class="highlight reveal reveal-d2"><span class="hi-icon">🏗️</span><div><b>Clean Architecture</b><p>Scalable, maintainable code teams love to extend.</p></div></div>
+            <div class="highlight reveal reveal-d3"><span class="hi-icon">🚀</span><div><b>Ship Fast, Ship Right</b><p>Agile delivery without sacrificing quality.</p></div></div>
           </div>
         </div>
-        <div class="about-right reveal reveal-delay-2">
-          <div class="about-card">
-            <div class="about-card-header">
-              <div class="about-avatar">FI</div>
+        <div class="about-right reveal reveal-d2">
+          <div class="info-card">
+            <div class="ic-header">
+              <div class="ic-avatar">FI</div>
               <div>
-                <div class="about-card-name">Faruk Islam</div>
-                <div class="about-card-role">Full Stack Developer</div>
+                <div class="ic-name">Faruk Islam</div>
+                <div class="ic-role">Full Stack Developer</div>
               </div>
             </div>
-            <div class="about-card-info">
-              <div class="info-row"><span class="info-label">Location</span><span class="info-val">Dhaka, Bangladesh</span></div>
-              <div class="info-row"><span class="info-label">Availability</span><span class="info-val available"><span class="dot-green"></span>Open to work</span></div>
-              <div class="info-row"><span class="info-label">Remote</span><span class="info-val">Yes, worldwide</span></div>
-              <div class="info-row"><span class="info-label">Languages</span><span class="info-val">English, Bengali</span></div>
-              <div class="info-row"><span class="info-label">Education</span><span class="info-val">B.Sc. Computer Science</span></div>
+            <div class="ic-rows">
+              <div class="ic-row"><span>Location</span><span>Dhaka, Bangladesh</span></div>
+              <div class="ic-row"><span>Availability</span><span class="green-txt"><span class="dot-green"></span>Open to work</span></div>
+              <div class="ic-row"><span>Remote</span><span>Yes, worldwide</span></div>
+              <div class="ic-row"><span>Languages</span><span>English, Bengali</span></div>
+              <div class="ic-row"><span>Education</span><span>B.Sc. Computer Science</span></div>
+              <div class="ic-row"><span>Response time</span><span>Within 24 hours</span></div>
             </div>
-            <a href="#contact" class="about-card-cta">Let's work together →</a>
+            <a href="#contact" class="ic-cta">Let's work together →</a>
+          </div>
+          <div class="learning-card reveal reveal-d3">
+            <div class="lc-title">🔭 What I'm exploring</div>
+            <div class="lc-items">
+              <div class="lc-item"><span class="lc-dot"></span><div><b>AI/ML Integration</b><p>Building LLM-powered features into web apps</p></div></div>
+              <div class="lc-item"><span class="lc-dot teal"></span><div><b>Rust for Web</b><p>WASM modules for performance-critical code</p></div></div>
+              <div class="lc-item"><span class="lc-dot amber"></span><div><b>Web3 / Smart Contracts</b><p>Solidity + ethers.js for dApp development</p></div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ -->
   <!-- STACK -->
+  <!-- ═══════════════════════════════════════ -->
   <section id="stack" class="stack-section">
     <div class="container">
       <div class="section-header reveal">
         <div class="section-tag">// 01 · Stack</div>
         <h2 class="section-title">Technical Expertise</h2>
-        <p class="section-desc">Technologies I build with every day — from pixel-perfect frontends to robust backend systems.</p>
+        <p class="section-desc">Technologies I use daily — from pixel-perfect UIs to robust backend systems.</p>
       </div>
-
-      <div class="stack-grid reveal reveal-delay-1">
-
-        <div class="stack-card">
-          <div class="stack-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          </div>
-          <div class="stack-card-title">Frontend</div>
+      <div class="stack-grid reveal reveal-d1">
+        <div class="sk-card">
+          <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div class="sk-title">Frontend</div>
           <div class="tech-list">
-            <div class="tech-item"><span>React / Next.js</span><div class="bar-wrap"><div class="bar-fill" style="--w:95%"></div></div><span class="pct">95%</span></div>
-            <div class="tech-item"><span>TypeScript</span><div class="bar-wrap"><div class="bar-fill" style="--w:90%"></div></div><span class="pct">90%</span></div>
-            <div class="tech-item"><span>Tailwind CSS</span><div class="bar-wrap"><div class="bar-fill" style="--w:92%"></div></div><span class="pct">92%</span></div>
-            <div class="tech-item"><span>Vue.js</span><div class="bar-wrap"><div class="bar-fill" style="--w:70%"></div></div><span class="pct">70%</span></div>
+            <div class="tech-row"><span>React / Next.js</span><div class="bar-w"><div class="bar-f" style="--w:95%"></div></div><span class="pct">95%</span></div>
+            <div class="tech-row"><span>TypeScript</span><div class="bar-w"><div class="bar-f" style="--w:90%"></div></div><span class="pct">90%</span></div>
+            <div class="tech-row"><span>Tailwind CSS</span><div class="bar-w"><div class="bar-f" style="--w:92%"></div></div><span class="pct">92%</span></div>
+            <div class="tech-row"><span>Vue.js</span><div class="bar-w"><div class="bar-f" style="--w:70%"></div></div><span class="pct">70%</span></div>
           </div>
         </div>
-
-        <div class="stack-card">
-          <div class="stack-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12H19M12 5l7 7-7 7"/></svg>
-          </div>
-          <div class="stack-card-title">Backend</div>
+        <div class="sk-card">
+          <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12H19M12 5l7 7-7 7"/></svg></div>
+          <div class="sk-title">Backend</div>
           <div class="tech-list">
-            <div class="tech-item"><span>Node.js</span><div class="bar-wrap"><div class="bar-fill" style="--w:93%"></div></div><span class="pct">93%</span></div>
-            <div class="tech-item"><span>Express / Fastify</span><div class="bar-wrap"><div class="bar-fill" style="--w:88%"></div></div><span class="pct">88%</span></div>
-            <div class="tech-item"><span>Python / Django</span><div class="bar-wrap"><div class="bar-fill" style="--w:75%"></div></div><span class="pct">75%</span></div>
-            <div class="tech-item"><span>GraphQL</span><div class="bar-wrap"><div class="bar-fill" style="--w:80%"></div></div><span class="pct">80%</span></div>
+            <div class="tech-row"><span>Node.js</span><div class="bar-w"><div class="bar-f" style="--w:93%"></div></div><span class="pct">93%</span></div>
+            <div class="tech-row"><span>Express / Fastify</span><div class="bar-w"><div class="bar-f" style="--w:88%"></div></div><span class="pct">88%</span></div>
+            <div class="tech-row"><span>Python / Django</span><div class="bar-w"><div class="bar-f" style="--w:75%"></div></div><span class="pct">75%</span></div>
+            <div class="tech-row"><span>GraphQL</span><div class="bar-w"><div class="bar-f" style="--w:80%"></div></div><span class="pct">80%</span></div>
           </div>
         </div>
-
-        <div class="stack-card">
-          <div class="stack-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-          </div>
-          <div class="stack-card-title">Database</div>
+        <div class="sk-card">
+          <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg></div>
+          <div class="sk-title">Database</div>
           <div class="tech-list">
-            <div class="tech-item"><span>PostgreSQL</span><div class="bar-wrap"><div class="bar-fill" style="--w:90%"></div></div><span class="pct">90%</span></div>
-            <div class="tech-item"><span>MongoDB</span><div class="bar-wrap"><div class="bar-fill" style="--w:85%"></div></div><span class="pct">85%</span></div>
-            <div class="tech-item"><span>Redis</span><div class="bar-wrap"><div class="bar-fill" style="--w:78%"></div></div><span class="pct">78%</span></div>
-            <div class="tech-item"><span>MySQL</span><div class="bar-wrap"><div class="bar-fill" style="--w:82%"></div></div><span class="pct">82%</span></div>
+            <div class="tech-row"><span>PostgreSQL</span><div class="bar-w"><div class="bar-f" style="--w:90%"></div></div><span class="pct">90%</span></div>
+            <div class="tech-row"><span>MongoDB</span><div class="bar-w"><div class="bar-f" style="--w:85%"></div></div><span class="pct">85%</span></div>
+            <div class="tech-row"><span>Redis</span><div class="bar-w"><div class="bar-f" style="--w:78%"></div></div><span class="pct">78%</span></div>
+            <div class="tech-row"><span>MySQL</span><div class="bar-w"><div class="bar-f" style="--w:82%"></div></div><span class="pct">82%</span></div>
           </div>
         </div>
-
-        <div class="stack-card">
-          <div class="stack-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <div class="stack-card-title">DevOps & Cloud</div>
+        <div class="sk-card">
+          <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="sk-title">DevOps & Cloud</div>
           <div class="tech-list">
-            <div class="tech-item"><span>AWS</span><div class="bar-wrap"><div class="bar-fill" style="--w:80%"></div></div><span class="pct">80%</span></div>
-            <div class="tech-item"><span>Docker / K8s</span><div class="bar-wrap"><div class="bar-fill" style="--w:76%"></div></div><span class="pct">76%</span></div>
-            <div class="tech-item"><span>CI/CD Pipelines</span><div class="bar-wrap"><div class="bar-fill" style="--w:84%"></div></div><span class="pct">84%</span></div>
-            <div class="tech-item"><span>Git / GitHub</span><div class="bar-wrap"><div class="bar-fill" style="--w:96%"></div></div><span class="pct">96%</span></div>
+            <div class="tech-row"><span>AWS</span><div class="bar-w"><div class="bar-f" style="--w:80%"></div></div><span class="pct">80%</span></div>
+            <div class="tech-row"><span>Docker / K8s</span><div class="bar-w"><div class="bar-f" style="--w:76%"></div></div><span class="pct">76%</span></div>
+            <div class="tech-row"><span>CI/CD Pipelines</span><div class="bar-w"><div class="bar-f" style="--w:84%"></div></div><span class="pct">84%</span></div>
+            <div class="tech-row"><span>Git / GitHub</span><div class="bar-w"><div class="bar-f" style="--w:96%"></div></div><span class="pct">96%</span></div>
           </div>
         </div>
-
       </div>
-
-      <!-- Tools belt -->
-      <div class="tools-belt reveal reveal-delay-2">
-        <div class="tools-label">Also working with:</div>
-        <div class="tools-list">
-          <span class="tool-pill">Prisma</span><span class="tool-pill">Socket.io</span>
-          <span class="tool-pill">Stripe</span><span class="tool-pill">Firebase</span>
-          <span class="tool-pill">Nginx</span><span class="tool-pill">Linux</span>
-          <span class="tool-pill">Jest / Vitest</span><span class="tool-pill">Figma</span>
-          <span class="tool-pill">Vercel</span><span class="tool-pill">Supabase</span>
-          <span class="tool-pill">Cloudflare</span><span class="tool-pill">Terraform</span>
+      <div class="tools-belt reveal reveal-d2">
+        <span class="tools-label">Also with:</span>
+        <div class="tools-pills">
+          <span class="tpill">Prisma</span><span class="tpill">Socket.io</span><span class="tpill">Stripe</span>
+          <span class="tpill">Firebase</span><span class="tpill">Nginx</span><span class="tpill">Linux</span>
+          <span class="tpill">Jest</span><span class="tpill">Figma</span><span class="tpill">Vercel</span>
+          <span class="tpill">Supabase</span><span class="tpill">Cloudflare</span><span class="tpill">Terraform</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ -->
   <!-- PROJECTS -->
-  <section id="projects" class="projects-section">
+  <!-- ═══════════════════════════════════════ -->
+  <section id="projects" class="projects-section section-alt">
     <div class="container">
       <div class="section-header reveal">
         <div class="section-tag">// 02 · Projects</div>
         <h2 class="section-title">Featured Work</h2>
-        <p class="section-desc">A selection of projects I've built — from concept to deployment.</p>
+        <p class="section-desc">A curated selection of projects — from concept to production.</p>
       </div>
-
+      <!-- Filter tabs -->
+      <div class="filter-tabs reveal reveal-d1">
+        <button class="ftab active" data-filter="all">All</button>
+        <button class="ftab" data-filter="fullstack">Full Stack</button>
+        <button class="ftab" data-filter="frontend">Frontend</button>
+        <button class="ftab" data-filter="backend">Backend</button>
+      </div>
       <!-- Featured -->
-      <div class="project-featured reveal">
-        <div class="pf-content">
-          <div class="pf-tag">Featured Project</div>
+      <div class="proj-featured reveal" data-cat="fullstack">
+        <div class="pf-left">
+          <div class="pf-tag">★ Featured Project</div>
           <h3 class="pf-title">Multi-Vendor E-Commerce Platform</h3>
-          <p class="pf-desc">A full-scale marketplace supporting multiple sellers with real-time inventory management, Stripe payment processing, custom merchant dashboards, and a high-performance admin analytics panel. Built to handle 50k+ concurrent users.</p>
+          <p class="pf-desc">Full-scale marketplace supporting multiple sellers with real-time inventory, Stripe payments, merchant dashboards, and a high-performance admin analytics panel. Architected to handle 50k+ concurrent users with 99.9% uptime.</p>
           <div class="pf-tags">
-            <span class="ptag">Next.js</span>
-            <span class="ptag">Node.js</span>
-            <span class="ptag">PostgreSQL</span>
-            <span class="ptag">Redis</span>
-            <span class="ptag">Stripe</span>
-            <span class="ptag teal">AWS S3</span>
-            <span class="ptag teal">Docker</span>
+            <span class="ptag">Next.js</span><span class="ptag">Node.js</span><span class="ptag">PostgreSQL</span>
+            <span class="ptag">Redis</span><span class="ptag">Stripe</span><span class="ptag teal">AWS S3</span><span class="ptag teal">Docker</span>
           </div>
           <div class="pf-links">
             <a href="#" class="pf-link">Live Demo ↗</a>
-            <a href="#" class="pf-link pf-link-ghost">GitHub ↗</a>
+            <a href="#" class="pf-link ghost">GitHub ↗</a>
           </div>
         </div>
-        <div class="pf-metrics">
-          <div class="metric-card"><div class="metric-num">50k+</div><div class="metric-lbl">Monthly users</div></div>
-          <div class="metric-card"><div class="metric-num">99.9%</div><div class="metric-lbl">Uptime SLA</div></div>
-          <div class="metric-card"><div class="metric-num">120ms</div><div class="metric-lbl">Avg. response</div></div>
-          <div class="metric-card"><div class="metric-num">300+</div><div class="metric-lbl">API endpoints</div></div>
+        <div class="pf-right">
+          <div class="metrics-grid">
+            <div class="met"><div class="met-n">50k+</div><div class="met-l">Monthly users</div></div>
+            <div class="met"><div class="met-n">99.9%</div><div class="met-l">Uptime SLA</div></div>
+            <div class="met"><div class="met-n">120ms</div><div class="met-l">Avg. response</div></div>
+            <div class="met"><div class="met-n">300+</div><div class="met-l">API endpoints</div></div>
+          </div>
         </div>
       </div>
-
       <!-- Project grid -->
-      <div class="projects-grid">
-
-        <div class="project-card reveal">
-          <div class="pc-header">
-            <div class="pc-icon">📊</div>
-            <div class="pc-links">
-              <a href="#" title="Live">↗</a>
-              <a href="#" title="Code">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-          </div>
+      <div class="proj-grid" id="proj-grid">
+        <div class="proj-card reveal" data-cat="fullstack">
+          <div class="pc-top"><div class="pc-icon">📊</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
           <h3 class="pc-title">Real-Time Analytics Dashboard</h3>
-          <p class="pc-desc">Business intelligence platform with live data streaming, custom chart builder, drill-down filters, and automated PDF report generation for enterprise clients.</p>
-          <div class="pc-tags">
-            <span class="ptag">React</span><span class="ptag">D3.js</span>
-            <span class="ptag teal">WebSockets</span><span class="ptag">MongoDB</span>
-          </div>
+          <p class="pc-desc">BI platform with live data streaming, custom chart builder, drill-down filters, and automated PDF reports for enterprise clients.</p>
+          <div class="pc-tags"><span class="ptag">React</span><span class="ptag">D3.js</span><span class="ptag teal">WebSockets</span><span class="ptag">MongoDB</span></div>
         </div>
-
-        <div class="project-card reveal reveal-delay-1">
-          <div class="pc-header">
-            <div class="pc-icon">⚡</div>
-            <div class="pc-links">
-              <a href="#" title="Live">↗</a>
-              <a href="#" title="Code">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-          </div>
+        <div class="proj-card reveal reveal-d1" data-cat="backend">
+          <div class="pc-top"><div class="pc-icon">⚡</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
           <h3 class="pc-title">High-Performance Task API</h3>
-          <p class="pc-desc">RESTful API with JWT auth, rate limiting, message queues, and caching — serving 50k+ daily active users across enterprise clients with 99.9% uptime.</p>
-          <div class="pc-tags">
-            <span class="ptag">Express</span><span class="ptag">Redis</span>
-            <span class="ptag teal">RabbitMQ</span><span class="ptag">Docker</span>
-          </div>
+          <p class="pc-desc">RESTful API with JWT auth, rate limiting, and message queue integration serving 50k+ daily active users with 99.9% uptime.</p>
+          <div class="pc-tags"><span class="ptag">Express</span><span class="ptag">Redis</span><span class="ptag teal">RabbitMQ</span><span class="ptag">Docker</span></div>
         </div>
-
-        <div class="project-card reveal reveal-delay-2">
-          <div class="pc-header">
-            <div class="pc-icon">💬</div>
-            <div class="pc-links">
-              <a href="#" title="Live">↗</a>
-              <a href="#" title="Code">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h3 class="pc-title">Real-Time Chat Application</h3>
-          <p class="pc-desc">Slack-inspired team messaging app with rooms, direct messages, file sharing, and end-to-end encryption. Supports 1000+ concurrent connections.</p>
-          <div class="pc-tags">
-            <span class="ptag">Next.js</span>
-            <span class="ptag teal">Socket.io</span>
-            <span class="ptag">PostgreSQL</span><span class="ptag">AWS</span>
-          </div>
+        <div class="proj-card reveal reveal-d2" data-cat="fullstack">
+          <div class="pc-top"><div class="pc-icon">💬</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
+          <h3 class="pc-title">Real-Time Chat App</h3>
+          <p class="pc-desc">Slack-inspired team messaging with channels, DMs, file sharing, and end-to-end encryption. Handles 1000+ concurrent connections.</p>
+          <div class="pc-tags"><span class="ptag">Next.js</span><span class="ptag teal">Socket.io</span><span class="ptag">PostgreSQL</span><span class="ptag">AWS</span></div>
         </div>
-
+        <div class="proj-card reveal" data-cat="frontend">
+          <div class="pc-top"><div class="pc-icon">🎨</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
+          <h3 class="pc-title">Design System & UI Kit</h3>
+          <p class="pc-desc">A comprehensive React component library with 80+ components, dark mode support, full TypeScript types, and Storybook documentation.</p>
+          <div class="pc-tags"><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Storybook</span><span class="ptag">Figma</span></div>
+        </div>
+        <div class="proj-card reveal reveal-d1" data-cat="backend">
+          <div class="pc-top"><div class="pc-icon">🔐</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
+          <h3 class="pc-title">Auth Microservice</h3>
+          <p class="pc-desc">Production-ready OAuth2 + JWT authentication service with MFA, refresh token rotation, and audit logging. Used by 3 client products.</p>
+          <div class="pc-tags"><span class="ptag">Node.js</span><span class="ptag">PostgreSQL</span><span class="ptag">Redis</span><span class="ptag teal">OAuth2</span></div>
+        </div>
+        <div class="proj-card reveal reveal-d2" data-cat="frontend">
+          <div class="pc-top"><div class="pc-icon">📱</div><div class="pc-ext"><a href="#" title="Live">↗</a><a href="#" title="Code"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a></div></div>
+          <h3 class="pc-title">SaaS Landing Pages</h3>
+          <p class="pc-desc">High-converting landing page templates with A/B testing hooks, animation-rich scroll interactions, and 95+ Lighthouse scores.</p>
+          <div class="pc-tags"><span class="ptag">Next.js</span><span class="ptag">Framer Motion</span><span class="ptag">Tailwind</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="experience-section">
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICES -->
+  <!-- ═══════════════════════════════════════ -->
+  <section id="services" class="services-section">
     <div class="container">
       <div class="section-header reveal">
-        <div class="section-tag">// 03 · Experience</div>
+        <div class="section-tag">// 03 · Services</div>
+        <h2 class="section-title">What I Offer</h2>
+        <p class="section-desc">Clear pricing, transparent process, exceptional results.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <div class="price-tier">Starter</div>
+          <div class="price-amount">$800<span>/project</span></div>
+          <div class="price-desc">Perfect for landing pages, portfolios, and small web apps.</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Up to 5 pages / screens</li>
+            <li><span class="check">✓</span> Responsive design</li>
+            <li><span class="check">✓</span> Contact form integration</li>
+            <li><span class="check">✓</span> Basic SEO setup</li>
+            <li><span class="check">✓</span> 2 weeks delivery</li>
+            <li><span class="muted">✗</span> Custom backend</li>
+            <li><span class="muted">✗</span> Database integration</li>
+          </ul>
+          <a href="#contact" class="price-cta outline">Get Started</a>
+        </div>
+        <div class="price-card featured reveal reveal-d1">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-tier">Professional</div>
+          <div class="price-amount">$2,500<span>/project</span></div>
+          <div class="price-desc">Ideal for SaaS products, dashboards, and full-stack web apps.</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Unlimited pages</li>
+            <li><span class="check">✓</span> Full stack (React + Node.js)</li>
+            <li><span class="check">✓</span> Database design & API</li>
+            <li><span class="check">✓</span> Auth & user management</li>
+            <li><span class="check">✓</span> AWS / Vercel deployment</li>
+            <li><span class="check">✓</span> 4 weeks delivery</li>
+            <li><span class="check">✓</span> 30 days post-launch support</li>
+          </ul>
+          <a href="#contact" class="price-cta">Get Started</a>
+        </div>
+        <div class="price-card reveal reveal-d2">
+          <div class="price-tier">Enterprise</div>
+          <div class="price-amount">Custom<span>/month</span></div>
+          <div class="price-desc">Dedicated development for complex platforms, teams, and ongoing projects.</div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Everything in Professional</li>
+            <li><span class="check">✓</span> Microservices architecture</li>
+            <li><span class="check">✓</span> CI/CD pipelines</li>
+            <li><span class="check">✓</span> Performance audits</li>
+            <li><span class="check">✓</span> Code reviews & mentoring</li>
+            <li><span class="check">✓</span> Dedicated Slack channel</li>
+            <li><span class="check">✓</span> Priority support SLA</li>
+          </ul>
+          <a href="#contact" class="price-cta outline">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- EXPERIENCE -->
+  <!-- ═══════════════════════════════════════ -->
+  <section id="experience" class="experience-section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// 04 · Experience</div>
         <h2 class="section-title">Work History</h2>
         <p class="section-desc">My professional journey — where I've worked and what I've built.</p>
       </div>
-
       <div class="timeline">
-
         <div class="tl-item reveal">
-          <div class="tl-left">
-            <div class="tl-period">2022 — Present</div>
-            <div class="tl-company-short">TVL</div>
-          </div>
-          <div class="tl-center">
-            <div class="tl-dot tl-active"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-right">
-            <div class="tl-current-badge">Current</div>
+          <div class="tl-year">2022<br><span>Present</span></div>
+          <div class="tl-mid"><div class="tl-dot active"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <span class="tl-now">● Current</span>
             <div class="tl-role">Senior Full Stack Developer</div>
-            <div class="tl-company">TechVentures Ltd.</div>
-            <p class="tl-desc">Led a cross-functional team of 5 engineers to architect and deliver the company's flagship SaaS platform. Reduced API latency by 60% through Redis caching strategies. Introduced CI/CD pipelines and automated testing, cutting deployment time from days to minutes. Mentored 3 junior developers.</p>
-            <div class="tl-achievements">
-              <div class="achievement">↑ 60% faster API response times</div>
-              <div class="achievement">↓ 80% deployment time reduction</div>
-              <div class="achievement">★ Led team of 5 engineers</div>
-            </div>
-            <div class="tl-tags">
-              <span class="tl-tag">React</span><span class="tl-tag">Node.js</span>
-              <span class="tl-tag">AWS</span><span class="tl-tag">PostgreSQL</span>
-              <span class="tl-tag">Docker</span><span class="tl-tag">Team Lead</span>
-            </div>
+            <div class="tl-co">TechVentures Ltd.</div>
+            <p class="tl-desc">Led a cross-functional team of 5 engineers to architect and deliver the company's flagship SaaS platform. Reduced API latency by 60% through Redis caching. Introduced CI/CD pipelines cutting deployment time from days to minutes. Mentored 3 junior developers.</p>
+            <div class="tl-wins"><span>↑ 60% faster APIs</span><span>↓ 80% deploy time</span><span>★ Led 5 engineers</span></div>
+            <div class="tl-tags"><span>React</span><span>Node.js</span><span>AWS</span><span>PostgreSQL</span><span>Docker</span><span>Team Lead</span></div>
           </div>
         </div>
-
-        <div class="tl-item reveal reveal-delay-1">
-          <div class="tl-left">
-            <div class="tl-period">2020 — 2022</div>
-            <div class="tl-company-short">SS</div>
-          </div>
-          <div class="tl-center">
-            <div class="tl-dot tl-teal"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-right">
+        <div class="tl-item reveal reveal-d1">
+          <div class="tl-year">2020<br><span>2022</span></div>
+          <div class="tl-mid"><div class="tl-dot teal"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
             <div class="tl-role">Full Stack Developer</div>
-            <div class="tl-company">Startup Studio</div>
-            <p class="tl-desc">Shipped 6+ web products end-to-end for clients in fintech, e-commerce, and SaaS. Owned complete product cycles from design collaboration through to production deployment. Built internal component library adopted across all projects.</p>
-            <div class="tl-tags">
-              <span class="tl-tag">Next.js</span><span class="tl-tag">TypeScript</span>
-              <span class="tl-tag">PostgreSQL</span><span class="tl-tag">Docker</span>
-            </div>
+            <div class="tl-co">Startup Studio</div>
+            <p class="tl-desc">Shipped 6+ web products end-to-end for clients in fintech, e-commerce, and SaaS. Owned complete product cycles from design collaboration through to production. Built internal component library adopted across all company projects.</p>
+            <div class="tl-tags"><span>Next.js</span><span>TypeScript</span><span>PostgreSQL</span><span>Docker</span></div>
           </div>
         </div>
-
-        <div class="tl-item reveal reveal-delay-2">
-          <div class="tl-left">
-            <div class="tl-period">2018 — 2020</div>
-            <div class="tl-company-short">DA</div>
-          </div>
-          <div class="tl-center">
-            <div class="tl-dot tl-gray"></div>
-          </div>
-          <div class="tl-right">
+        <div class="tl-item reveal reveal-d2">
+          <div class="tl-year">2018<br><span>2020</span></div>
+          <div class="tl-mid"><div class="tl-dot gray"></div></div>
+          <div class="tl-body">
             <div class="tl-role">Frontend Developer</div>
-            <div class="tl-company">Digital Agency</div>
-            <p class="tl-desc">Developed responsive web interfaces and reusable component libraries for 10+ enterprise clients. Specialized in performance optimization and accessibility, achieving 95+ Lighthouse scores across all projects.</p>
-            <div class="tl-tags">
-              <span class="tl-tag">React</span><span class="tl-tag">TypeScript</span>
-              <span class="tl-tag">SCSS</span><span class="tl-tag">Webpack</span>
-            </div>
+            <div class="tl-co">Digital Agency</div>
+            <p class="tl-desc">Developed responsive web interfaces and component libraries for 10+ enterprise clients. Specialized in performance optimization and accessibility, achieving 95+ Lighthouse scores across all projects.</p>
+            <div class="tl-tags"><span>React</span><span>TypeScript</span><span>SCSS</span><span>Webpack</span></div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TESTIMONIALS -->
+  <!-- ═══════════════════════════════════════ -->
+  <section id="testimonials" class="testimonials-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// 05 · Testimonials</div>
+        <h2 class="section-title">What Clients Say</h2>
+        <p class="section-desc">Real feedback from people I've had the pleasure of working with.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Faruk delivered our e-commerce platform in record time and it exceeded every expectation. His communication was exceptional and the code quality is outstanding — we've had zero downtime in 8 months."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SR</div>
+            <div><div class="testi-name">Sarah Rahman</div><div class="testi-role">CEO, ShopBD</div></div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-d1">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Working with Faruk felt like having a senior engineer in-house. He didn't just write code — he proactively identified problems, suggested architecture improvements, and truly cared about the product's success."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MK</div>
+            <div><div class="testi-name">Michael Kim</div><div class="testi-role">CTO, DataPulse Inc.</div></div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-d2">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Our API now handles 3x the load at half the cost. Faruk's Redis caching strategy and query optimizations were exactly what we needed. Highly recommended for any serious backend work."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">AL</div>
+            <div><div class="testi-name">Alex Larsson</div><div class="testi-role">Founder, SwiftTask</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
   <!-- CONTACT -->
-  <section id="contact" class="contact-section">
+  <!-- ═══════════════════════════════════════ -->
+  <section id="contact" class="contact-section section-alt">
     <div class="container">
       <div class="contact-inner">
         <div class="contact-left reveal">
-          <div class="section-tag">// 04 · Contact</div>
+          <div class="section-tag">// 06 · Contact</div>
           <h2 class="section-title">Let's Build Something<br><em>Great Together</em></h2>
-          <p class="contact-desc">I'm currently available for freelance projects, full-time roles, and interesting collaborations. If you have an idea or opportunity, I'd love to hear about it.</p>
-
+          <p class="body-text">Available for freelance projects, full-time roles, and interesting collaborations. I typically respond within 24 hours.</p>
           <div class="contact-cards">
-            <a href="mailto:faruk@email.com" class="contact-card">
-              <div class="cc-icon">✉️</div>
-              <div>
-                <div class="cc-label">Email</div>
-                <div class="cc-value">faruk@email.com</div>
-              </div>
-            </a>
-            <a href="https://linkedin.com/" target="_blank" class="contact-card">
-              <div class="cc-icon">💼</div>
-              <div>
-                <div class="cc-label">LinkedIn</div>
-                <div class="cc-value">linkedin.com/in/farukislam</div>
-              </div>
-            </a>
-            <a href="https://github.com/" target="_blank" class="contact-card">
-              <div class="cc-icon">🐙</div>
-              <div>
-                <div class="cc-label">GitHub</div>
-                <div class="cc-value">github.com/farukislam</div>
-              </div>
-            </a>
-            <div class="contact-card no-hover">
-              <div class="cc-icon">📍</div>
-              <div>
-                <div class="cc-label">Location</div>
-                <div class="cc-value">Dhaka, Bangladesh &nbsp;·&nbsp; Remote OK</div>
-              </div>
-            </div>
+            <a href="mailto:faruk@email.com" class="cc"><div class="cc-ic">✉️</div><div><div class="cc-l">Email</div><div class="cc-v">faruk@email.com</div></div></a>
+            <a href="https://linkedin.com/" target="_blank" class="cc"><div class="cc-ic">💼</div><div><div class="cc-l">LinkedIn</div><div class="cc-v">linkedin.com/in/farukislam</div></div></a>
+            <a href="https://github.com/" target="_blank" class="cc"><div class="cc-ic">🐙</div><div><div class="cc-l">GitHub</div><div class="cc-v">github.com/farukislam</div></div></a>
+            <div class="cc no-link"><div class="cc-ic">📍</div><div><div class="cc-l">Location</div><div class="cc-v">Dhaka, BD · Remote OK</div></div></div>
           </div>
         </div>
-
-        <div class="contact-right reveal reveal-delay-2">
-          <form class="contact-form" id="contact-form">
-            <div class="form-group">
-              <label class="form-label">Your Name</label>
-              <input type="text" class="form-input" placeholder="John Doe" required />
+        <div class="contact-right reveal reveal-d2">
+          <form id="contact-form" class="cform">
+            <div class="cform-row">
+              <div class="fg"><label>Your Name</label><input type="text" placeholder="John Doe" required /></div>
+              <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com" required /></div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Email Address</label>
-              <input type="email" class="form-input" placeholder="john@company.com" required />
+            <div class="fg"><label>Subject</label><input type="text" placeholder="Project Inquiry" /></div>
+            <div class="fg"><label>Budget (optional)</label>
+              <select>
+                <option value="">Select budget range</option>
+                <option>Under $500</option>
+                <option>$500 – $2,000</option>
+                <option>$2,000 – $5,000</option>
+                <option>$5,000+</option>
+                <option>Let's discuss</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label class="form-label">Subject</label>
-              <input type="text" class="form-input" placeholder="Project Inquiry" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Message</label>
-              <textarea class="form-input form-textarea" placeholder="Tell me about your project..." rows="5" required></textarea>
-            </div>
-            <button type="submit" class="form-submit">
-              <span>Send Message</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-            <div class="form-success" id="form-success">
-              ✓ Message sent! I'll get back to you within 24 hours.
-            </div>
+            <div class="fg"><label>Message</label><textarea rows="5" placeholder="Tell me about your project..." required></textarea></div>
+            <button type="submit" class="cform-btn"><span>Send Message</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            <div class="cform-success" id="cform-success">✓ Message sent! I'll reply within 24 hours.</div>
           </form>
         </div>
       </div>
@@ -520,27 +560,14 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-left">
-          <div class="footer-logo">FI<span>.</span></div>
-          <div class="footer-tagline">Full Stack Developer · Dhaka, Bangladesh</div>
-        </div>
-        <div class="footer-center">
-          <div class="footer-copy">© 2026 Faruk Islam. All rights reserved.</div>
-          <div class="footer-made">Crafted with passion 🇧🇩</div>
-        </div>
-        <div class="footer-right">
-          <div class="footer-socials">
-            <a href="https://github.com/" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
-            <a href="mailto:faruk@email.com">Email</a>
-          </div>
-        </div>
+        <div><div class="footer-logo">FI<span>.</span></div><div class="footer-sub">Full Stack Developer · Dhaka 🇧🇩</div></div>
+        <div class="footer-mid"><div>© 2026 Faruk Islam. All rights reserved.</div></div>
+        <div class="footer-socials"><a href="https://github.com/" target="_blank">GitHub</a><a href="https://linkedin.com/" target="_blank">LinkedIn</a><a href="mailto:faruk@email.com">Email</a></div>
       </div>
     </div>
   </footer>
 
-  <!-- Back to top -->
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+  <button class="btt" id="btt" aria-label="Back to top">↑</button>
 
   <script src="js/main.js"></script>
 </body>

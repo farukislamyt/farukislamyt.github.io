@@ -1,61 +1,51 @@
-# Faruk Islam — Portfolio Website
+# Faruk Islam — Portfolio v2 (Full Upgrade)
 
-A professional dark-themed portfolio website for a Full Stack Developer.
+Premium dark/light mode portfolio website for a Full Stack Developer.
 
-## 📁 File Structure
-
+## 📁 Structure
 ```
-faruk-portfolio/
-├── index.html          ← Main HTML file
-├── css/
-│   └── style.css       ← All styles
-├── js/
-│   └── main.js         ← All JavaScript
-├── assets/             ← Put your CV PDF here as "faruk-islam-cv.pdf"
+faruk-v2/
+├── index.html        ← Full page (all 7 sections)
+├── css/style.css     ← All styles + light/dark mode
+├── js/main.js        ← All interactions & animations
+├── assets/
+│   ├── favicon.svg          ← Browser tab icon
+│   └── faruk-islam-cv.pdf   ← Add your CV here
 └── README.md
 ```
 
-## 🚀 How to Use
+## ✨ What's New in v2
+- ☀️ Dark / Light mode toggle (saved to localStorage)
+- 🎬 Page loader animation
+- 📊 Scroll progress bar at top
+- 💡 Floating particle background
+- ✍️ Typing effect (cycles through roles)
+- 🔢 Animated stat counters
+- 🃏 3D tilt on cards
+- 🔍 Project filter tabs (All / Frontend / Backend / Full Stack)
+- 💰 Services & Pricing section (3 tiers)
+- ⭐ Testimonials section (3 client reviews)
+- 📬 Contact form with budget selector
+- 🧭 Active nav highlight on scroll
+- 📱 Full mobile responsive
 
-1. Open `index.html` in any browser — no build step needed.
-2. To deploy: upload all files to Netlify, Vercel, or GitHub Pages.
+## ✏️ Customize
+Replace these in `index.html`:
+- `faruk@email.com` → your email
+- `github.com/farukislam` → your GitHub
+- `linkedin.com/in/farukislam` → your LinkedIn
+- Hero bio, stats (6+ years, 40+ projects, etc.)
+- Project names, descriptions, stack tags
+- Work history (companies, years, roles)
+- Testimonial names/quotes (ask real clients!)
+- Pricing amounts (adjust to your market)
 
-## ✏️ What to Customize
+Add your CV PDF to `assets/faruk-islam-cv.pdf`
 
-### Personal Info (`index.html`)
-- Replace `faruk@email.com` with your real email
-- Replace `github.com/farukislam` and `linkedin.com/in/farukislam` with your real URLs
-- Update hero bio text, years of experience, project count
-- Update project names, descriptions, tech stacks
-- Update work history (companies, roles, years, descriptions)
+## 🚀 Deploy for Free
+**Netlify** (easiest): drag the folder to netlify.com/drop
+**Vercel**: `npx vercel` in the folder
+**GitHub Pages**: push to a repo → Settings → Pages
 
-### CV Download
-- Add your CV as `assets/faruk-islam-cv.pdf`
-
-### Skill Percentages (`index.html`)
-- Edit `style="--w:95%"` values on each `.bar-fill` element
-
-### Contact Form
-- In `js/main.js`, replace the `setTimeout` simulation in `initContactForm()`
-  with a real API call (e.g. EmailJS, Formspree, or your own backend)
-
-## 🎨 Features
-- Custom animated cursor
-- Scroll-triggered reveal animations
-- Animated skill bars
-- Typing effect in hero section
-- Counter animation on stats
-- Subtle tilt effect on cards
-- Mobile responsive with hamburger menu
-- Sticky navbar with blur on scroll
-- Contact form with success state
-- Back-to-top button
-- Custom scrollbar
-
-## 🌐 Deploy to Netlify (Free)
-1. Go to [netlify.com](https://netlify.com)
-2. Drag & drop the `faruk-portfolio` folder
-3. Done! Your site is live.
-
-## 📄 License
-Free to use and customize for personal use.
+## 🎨 Change Accent Color
+In `css/style.css`, find `--indigo: #6366f1` and replace with any color.
