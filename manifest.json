@@ -1,0 +1,13 @@
+{
+  "name": "Faruk Islam — Full Stack Developer",
+  "short_name": "Faruk Islam",
+  "description": "Full Stack Developer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07070e",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
